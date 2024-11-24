@@ -1,0 +1,65 @@
+@startuml
+
+class Hero extends Charater {
+    - bag : bool
+
+    + fight() : void
+    + hasBag() : bool
+}
+
+class Location {
+    - nameLoc : String
+    - map<String, exit>
+    - cmd : List<commands>
+}
+
+class Door {
+    - nameDoor : String
+}
+
+class LockDoor extends Door {
+
+}
+
+class CodeLockDoor extends Door {
+
+}
+
+class HiddenDoor extends Door {
+
+}
+
+class Charater {
+ - charName : String
+}
+
+class Companion {
+ - compName : String
+}
+
+class Commands {
+    - name : String
+}
+
+class Items {
+    - itemName : String
+    - volume : double
+}
+
+class Bags {
+    - capacity : double
+    - items : List<Items>
+}
+
+Location -> Location
+Commands "1,n" <--* Location
+Door "1,n" --* Location
+Location "1,1" --o Charater
+
+
+Bags "0,1" --* Hero
+Bags *-- "0,n" Items
+
+Companion "0,n" --* Hero
+
+@enduml
