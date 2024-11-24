@@ -15,6 +15,8 @@ class Location {
 
 class Door {
     - nameDoor : String
+
+    - otherSide(Location) : Location
 }
 
 class LockDoor extends Door {
@@ -31,6 +33,12 @@ class HiddenDoor extends Door {
 
 class Charater {
  - charName : String
+ - MaxHealth : int
+ - Health : int
+ - Armor : int
+ - Strength : int
+ - Accuracy : int
+ - AttackSpeed : int
 }
 
 class Companion {
@@ -44,16 +52,32 @@ class Commands {
 class Items {
     - itemName : String
     - volume : double
+
+    - bonusMaxHealth : int
+    - bonusHealth : int
+    - bonusArmor : int
+    - bonusStrength : int
+    - bonusAccuracy : int
+    - bonusAttackSpeed : int
+
+    + getVolume() : double
+    + getName() : String
+    + printName() : void
+
+    + equip(Hero) : void
+    + unequip(Hero) : void
 }
 
-class Bags {
+class Bags extends Items{
     - capacity : double
     - items : List<Items>
+
+    + getItem() : List<Items>
 }
 
 Location -> Location
 Commands "1,n" <--* Location
-Door "1,n" --* Location
+Door "1,n" --* "2,2" Location
 Location "1,1" --o Charater
 
 
@@ -61,5 +85,7 @@ Bags "0,1" --* Hero
 Bags *-- "0,n" Items
 
 Companion "0,n" --* Hero
+Door <.. Hero
+
 
 @enduml
