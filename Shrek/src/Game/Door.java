@@ -1,6 +1,6 @@
 package Game;
 
-public class Door {
+public class  Door {
 
     private String nameDoor;
     private Location locationA;
@@ -8,13 +8,12 @@ public class Door {
 
 
 
+    //*************************CONSTRUCTEUR*********************************
     public Door(Location locationA, Location locationB) {
 
         this.locationA = locationA;
         this.locationB = locationB;
     }
-
-
 
 
     //***************************GETTEUR***************

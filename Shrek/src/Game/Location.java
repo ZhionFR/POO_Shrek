@@ -1,47 +1,97 @@
 package Game;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
 
-    private String namLoc;
+    private String nameLoc;
     private List<Door> next;
     private List<Commands> commands;
     private List<Character> characters;
 
 
+    public Location(String name ){
+        this.nameLoc = name;
+        this.next = new ArrayList<>();
+        this.commands = new ArrayList<>();
+        this.characters = new ArrayList<>();
 
 
-    //Verifie que les deux commandes peuvent interagir (sont presentent) dans le lieux.
-    public boolean isCommandsPresent(Commands cmd) {
 
-        for (int i = 0;i<commands.size();i++) {
+    }
 
-            if ((commands.get(i).getArg1()).equals(cmd.getArg1())) {
+    //***************************GETTEUR**********************************
+
+
+    //Renvoi le lieu voulus si la localisation appelé a une porte menant sur se lieux.
+    public Location getLocationDoor(String placeWanted){
+
+        for (int i = 0; i < this.next.size(); i++){
+
+            if (this.next.get(i).getLocationB().nameLoc == placeWanted){
+
+                return this.next.get(i).getLocationB();
+
+            }else if (this.next.get(i).getLocationA().nameLoc == placeWanted)
+
+                return this.next.get(i).getLocationA();
+        }
+        //ATTENTION : que revoyer si lieu pas present a travers porte.
+        return null;
+    }
+
+
+
+    //***********************SETTEUR ****************
+
+    //Ajout lors de l'initialisation surtout.
+    //Ajout d'un caractere
+    public void ajouterCharacter(Character ch){
+        this.characters.add(ch);
+    }
+
+    //Ajout d'une porte dans ma localisation
+    public void ajouterDoor(Door door){
+        this.next.add(door);
+    }
+
+    //Ajout de commandes
+    public void ajoutCommands(Commands cmd){
+        this.commands.add(cmd);
+    }
+
+    //Peut etre ajout compagnon ????!!!!!!
+
+
+    //*******************************FONCTION**********************************
+
+    //Ma locatlisation possede la porte demandé par l'utilisateur
+    public boolean isDoorGoTo(String door){
+
+        for (int i = 0; i<this.next.size(); i++){
+
+            if (this.next.get(i).equals(door)){
                 return true;
             }
         }
         return false;
     }
 
-    //changement de location (mon perso quitte cette piece).
-    private void exitTo(String arg2) {
-
-        for (int i = 0; i<next.size();i++){
-
-            //Regarde a travers les portes de mon lieu si le lieu voulu existe.
-            if (next.get(i).getLocationA().namLoc == arg2){
-                //Changement de location
 
 
-            }else if (next.get(i).getLocationB().namLoc == arg2){
-                //Changement de location
+    //Verifie que les deux commandes peuvent interagir (sont presentent) dans le lieux.
+    public boolean isCommandsPresent(String commandUse) {
 
+        for (int i = 0;i<this.commands.size();i++) {
+
+            if ((this.commands.get(i).cmdName == commandUse)){
+                return true;
             }
-
         }
-
-        this = arg2;
-
+        return false;
     }
+
+
+
 
 }
