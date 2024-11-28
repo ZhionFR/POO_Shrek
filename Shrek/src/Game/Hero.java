@@ -36,6 +36,11 @@ public class Hero extends Character {
 
     }
 
+    public Bags getCurrentBag(){
+    	System.out.println("Sac envoyé par le hero.");
+        return this.currentBag;
+    }
+
 
     //************************SETTEUR****************************
     public void changeCurrentLocation(Location B){
@@ -49,27 +54,29 @@ public class Hero extends Character {
     	
     	if (this.bag) {
     		this.bag = false;
+    		System.out.println("Sac doit etre posé.");
     	}else {
     		this.bag = true;
+    		System.out.println("Sac doit etre pris.");
+
     	}
     }
 
-
-    //Je peux faire une sorte de return de sac entre lieu et hero. Comme ca j'ai toujours le meme sac
-    /*
     //Ajout du sac a mon hero
     public void ajouteBag(Bags currentBag) {
         this.bag = true;
         this.currentBag = currentBag;
+        System.out.println("Sac recus par le hero.");
     }
 
     //Retirer le sac a mon hero
-    public void retirerBag(Bags currentBag) {
+    public void retirerBag() {
         this.bag = false;
+        this.currentBag = null;
+        System.out.println("Sac supprimer de hero.");
 
     }
 
-     */
 
     @Override
     public void isDead() {

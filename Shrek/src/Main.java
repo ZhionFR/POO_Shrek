@@ -30,7 +30,8 @@ public class Main {
 
         //Items dans maison
         Items bag = new Items("BAG",true,200.0,0,0,0,0,0,0);
-
+        
+        
         //AJOUT de tout dans le lieu
         maison.ajoutCommands(GO);
         maison.ajoutCommands(MARAIS);
@@ -82,45 +83,49 @@ public class Main {
 
 
             //Commande --> Dpot devenir la Commands de la forme du dessus.
+            
             arg1 = arg[0];
             arg2 = arg[1];
 
             //Commande rentré (arg1) est elle presente dans le lieu ou mon personnage se trouve.
             if (shrek.getCurrentLocation().isCommandsPresent(arg1)) {
-            		
-            	//System.out.println("commande une BIEN PRESENTE");
-                
+
             	//Utilisateur a tapé GO et une des portes mene a la localisation voulu.
                 if (arg1.equals("GO") && shrek.getCurrentLocation().isDoorGoTo(arg2)) {
-                	
-                	//System.out.println("Go est tape ET la location a une porte menant au lieu B");
-                	
+
                     //Sortir dans le deuxieme deuxieme lieu
                     //Je change la localisation de mon hero grace a une des portes de cette derniere qui mene a la locatlisation voulus.
                     shrek.changeCurrentLocation(shrek.getCurrentLocation().getLocationDoor(arg2));
 
 
                 }
-                /*
+
                 //En admettant que le joueur tape juste 'BAG' pour le prendre ou le poser
                 if (arg1.equals("BAG")) {
                 		
                 	shrek.changeBag();
+                	
                 	if (shrek.hasBag()) { //S'il l'a pris --> l'ajouter au joueur (changeBag ne fait que dire si le joueur a un sac ou non)
 
-                        //Retirer l'items du lieu
-                        shrek.a
+                        //Mon hero prend le sac du lieu
+                        shrek.ajouteBag(shrek.getCurrentLocation().getBags());
+                        
+                        //Le sac se voit etre supprimé du lieu
                         shrek.getCurrentLocation().suppItems(bag);
+                	
                 	}else {
-                        //J'ajoute l'item dans le lieu.
-                        shrek.getCurrentLocation().ajoutItems(bag);
+                        
+                		//J'ajoute l'item dans le lieu.
+                        shrek.getCurrentLocation().ajoutItems(shrek.getCurrentBag());
+                        
+                        //Mon hero se voit poser le sac
+                        shrek.retirerBag();
                     }
-                }*/
+                }
                 
                 
                 
             }
-        	//test changment de location. System.out.println(shrek.getCurrentLocation().getNameLoc());
 
         }
     }

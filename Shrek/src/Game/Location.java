@@ -43,7 +43,35 @@ public class Location {
 
 
     public String getNameLoc() {
+    	
     	return this.nameLoc;
+    }
+ 
+    //Renvoi le sac present dans le lieu
+   /*
+    public Bags getBags(){
+        
+    	for (int i = 0; i < this.items.size(); i++){
+        
+    		if (this.items.get(i).getName().equals("BAG")){
+    			System.out.println("Sac renvoyer par le lieu.");
+    			return (Bags) this.items.get(i);//Renvoi mon item sous la forme d'un sac
+            }
+        }
+		return null;
+
+    }
+    */
+    public Bags getBags() {
+        for (int i = 0; i < this.items.size(); i++) {
+            // Vérifie si l'élément est une instance de Bags
+            if (this.items.get(i) instanceof Bags) {
+                System.out.println("Sac renvoyé par le lieu.");
+                return (Bags) this.items.get(i); // Cast sûr après vérification
+            }
+        }
+        System.out.println("Aucun sac trouvé dans ce lieu.");
+        return null;
     }
 
     //***********************SETTEUR ****************
@@ -70,11 +98,13 @@ public class Location {
 
     public void ajoutItems(Items item){
         this.items.add(item);
+        System.out.println("Sac ajouter dans le lieu.");
     }
 
     //Appele lorsque mon hero prends un items dans le lieu
     public void suppItems(Items item){
         this.items.remove(item);
+        System.out.println("Sac supprimer du lieu.");
     }
 
     //*******************************FONCTION**********************************
