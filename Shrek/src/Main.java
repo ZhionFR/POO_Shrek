@@ -62,10 +62,13 @@ public class Main {
         //PROBLEME : devrait ajouter un compagnon car il secend de caractere. ah non
         marais.ajouterCharacter(DONKEY);
         */
-        int fin = 0;
-        while (!fin) {
+        int fin = 1;
+        while (fin>0) {
 
-            String arg1; //exemple : 'GO'
+        	//test changement de location.
+        	System.out.println(shrek.getCurrentLocation().getNameLoc());
+            
+        	String arg1; //exemple : 'GO'
             String arg2; //exemple : 'MARAIS'
 
             Scanner sc = new Scanner(System.in);
@@ -80,10 +83,14 @@ public class Main {
 
             //Commande rentré (arg1) est elle presente dans le lieu ou mon personnage se trouve.
             if (shrek.getCurrentLocation().isCommandsPresent(arg1)) {
-
-                //Utilisateur a tapé GO et une des portes mene a la localisation voulu.
+            		
+            	System.out.println("commande une BIEN PRESENTE");
+                
+            	//Utilisateur a tapé GO et une des portes mene a la localisation voulu.
                 if (arg1.equals("GO") && shrek.getCurrentLocation().isDoorGoTo(arg2)) {
-
+                	
+                	System.out.println("Go est tape ET la location a une porte menant au lieu B");
+                	
                     //Sortir dans le deuxieme deuxieme lieu
                     //Je change la localisation de mon hero grace a une des portes de cette derniere qui mene a la locatlisation voulus.
                     shrek.changeCurrentLocation(shrek.getCurrentLocation().getLocationDoor(arg2));
@@ -91,6 +98,9 @@ public class Main {
 
                 }
             }
+        	//test changment de location.
+            System.out.println(shrek.getCurrentLocation().getNameLoc());
+
         }
     }
 }

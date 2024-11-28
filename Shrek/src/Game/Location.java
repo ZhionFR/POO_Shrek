@@ -28,11 +28,11 @@ public class Location {
 
         for (int i = 0; i < this.next.size(); i++){
 
-            if (this.next.get(i).getLocationB().nameLoc == placeWanted){
+            if (this.next.get(i).getLocationB().getNameLoc().equals(placeWanted)){
 
                 return this.next.get(i).getLocationB();
 
-            }else if (this.next.get(i).getLocationA().nameLoc == placeWanted)
+            }else if (this.next.get(i).getLocationA().getNameLoc().equals(placeWanted))
 
                 return this.next.get(i).getLocationA();
         }
@@ -41,6 +41,9 @@ public class Location {
     }
 
 
+    public String getNameLoc() {
+    	return this.nameLoc;
+    }
 
     //***********************SETTEUR ****************
 
@@ -49,6 +52,7 @@ public class Location {
     public void ajouterCharacter(Character ch){
         this.characters.add(ch);
     }
+
 
     //Ajout d'une porte dans ma localisation
     public void ajouterDoor(Door door){
@@ -66,6 +70,7 @@ public class Location {
     //*******************************FONCTION**********************************
 
     //Ma locatlisation possede la porte demandé par l'utilisateur
+    /*
     public boolean isDoorGoTo(String door){
 
         for (int i = 0; i<this.next.size(); i++){
@@ -76,6 +81,17 @@ public class Location {
         }
         return false;
     }
+    */
+    public boolean isDoorGoTo(String door) {
+        for (Door d : this.next) {
+            if (d.getLocationA().getNameLoc().equals(door) || 
+                d.getLocationB().getNameLoc().equals(door)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
@@ -84,7 +100,7 @@ public class Location {
 
         for (int i = 0;i<this.commands.size();i++) {
 
-            if ((this.commands.get(i).cmdName == commandUse)){
+            if ((this.commands.get(i).cmdName.equals(commandUse))){
                 return true;
             }
         }

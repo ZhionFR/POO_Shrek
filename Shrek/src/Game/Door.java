@@ -21,7 +21,7 @@ public class  Door {
 
         return this.nameDoor;
     }
-
+    
 
     //Avoir les deux accées de ma porte.
     public Location getLocationB(){
