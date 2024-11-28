@@ -46,7 +46,7 @@ public class Location {
     	
     	return this.nameLoc;
     }
- 
+
     //Renvoi le sac present dans le lieu
    /*
     public Bags getBags(){

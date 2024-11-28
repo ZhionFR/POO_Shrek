@@ -29,9 +29,9 @@ public class Main {
         Commands BAG = new Commands("BAG");
 
         //Items dans maison
-        Items bag = new Items("BAG",true,200.0,0,0,0,0,0,0);
-        
-        
+
+        Bags bag = new Bags(200.0,"BAG_1");
+
         //AJOUT de tout dans le lieu
         maison.ajoutCommands(GO);
         maison.ajoutCommands(MARAIS);
