@@ -93,6 +93,10 @@ public class Location {
         this.commands.add(cmd);
     }
 
+    public void suppCommands(Commands cmd){
+        this.commands.remove(cmd);
+    }
+
     //Peut etre ajout compagnon ????!!!!!!
 
 

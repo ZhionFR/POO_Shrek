@@ -122,6 +122,37 @@ public class Main {
                         shrek.retirerBag();
                     }
                 }
+
+                //Augmenter la vie du perso qui n'aura pas ete mis au mex a son initislisation.
+                //Commande encore presente dans la location du hero
+                if (arg1.equals("MEAL") && shrek.getCurrentLocation().isCommandsPresent(arg1)) {
+
+                    shrek.addHealth(50);
+                   
+                    //retirer le rapas du lieu
+                    shrek.getCurrentLocation().suppCommands(MEAL);
+
+                }
+
+                if (arg1.equals("BED") && ( shrek.getCurrentLocation().getNameLoc().equals("MAISON") /*|| shrek.getCurrentLocation().getNameLoc().equals("MOULIN2")*/)) {
+                	
+                    shrek.addAccuracy(5);
+                    //Afficher le texte de telle numero
+                    //afficherText(2); //C'est bien dormir
+
+
+                }
+
+                //MARAIS
+                if (arg1.equals("WC") && shrek.getCurrentLocation().isCommandsPresent(arg1)) {
+
+                		//EASTER egg des toilettes 
+                		//affichertext(x);
+                }
+                
+                if (arg1.equals("MOUTHBLIND") && shrek.getCurrentLocation().isCommandsPresent(arg1)) {
+                    
+                }
                 
                 
                 
