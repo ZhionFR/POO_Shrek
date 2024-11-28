@@ -8,6 +8,7 @@ public class Location {
     private List<Door> next;
     private List<Commands> commands;
     private List<Character> characters;
+    private List<Items> items;
 
 
     public Location(String name ){
@@ -15,7 +16,7 @@ public class Location {
         this.next = new ArrayList<>();
         this.commands = new ArrayList<>();
         this.characters = new ArrayList<>();
-
+        this.items = new ArrayList<>();
 
 
     }
@@ -66,6 +67,15 @@ public class Location {
 
     //Peut etre ajout compagnon ????!!!!!!
 
+
+    public void ajoutItems(Items item){
+        this.items.add(item);
+    }
+
+    //Appele lorsque mon hero prends un items dans le lieu
+    public void suppItems(Items item){
+        this.items.remove(item);
+    }
 
     //*******************************FONCTION**********************************
 

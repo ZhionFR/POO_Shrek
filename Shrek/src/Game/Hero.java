@@ -5,7 +5,7 @@ public class Hero extends Character {
     private boolean bag;
 
     private Location currentLocation;
-
+    private Bags currentBag;
 
 
     //**************************Constructor*************************
@@ -43,9 +43,39 @@ public class Hero extends Character {
         this.currentLocation = B;
 
     }
+    
+    //change la possession ou non du sac sur mon hero
+    public void changeBag() {
+    	
+    	if (this.bag) {
+    		this.bag = false;
+    	}else {
+    		this.bag = true;
+    	}
+    }
+
+
+    //Je peux faire une sorte de return de sac entre lieu et hero. Comme ca j'ai toujours le meme sac
+    /*
+    //Ajout du sac a mon hero
+    public void ajouteBag(Bags currentBag) {
+        this.bag = true;
+        this.currentBag = currentBag;
+    }
+
+    //Retirer le sac a mon hero
+    public void retirerBag(Bags currentBag) {
+        this.bag = false;
+
+    }
+
+     */
 
     @Override
     public void isDead() {
         // TODO
     }
+    
+    
+    
 }
