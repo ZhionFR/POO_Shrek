@@ -12,6 +12,7 @@ public class Hero extends Character {
     public Hero() {
         super("Shrek", 400, 15); // example base_health and base_strength
         boolean bag = false;
+        currentBag = null;
     }
 
     //place mon hero dans la maison au debut de la partie
@@ -20,9 +21,8 @@ public class Hero extends Character {
         boolean bag = false;
 
         this.currentLocation = loc;
+        currentBag = null;
     }
-
-
 
 
     //***********************GETTEURS***************************
@@ -37,7 +37,6 @@ public class Hero extends Character {
     }
 
     public Bags getCurrentBag(){
-    	System.out.println("Sac envoyé par le hero.");
         return this.currentBag;
     }
 
@@ -77,12 +76,28 @@ public class Hero extends Character {
 
     }
 
+    public void addItemInBag(Items item) {
+        this.currentBag.addItemsInBag(item);
+    }
 
     @Override
     public void isDead() {
         // TODO
     }
-    
+
+
+    public void useItem(Items item) {
+
+        //Faire impacter les caracteristiques de l'item a mon perso.
+       // item.impactHero(this);  //Qui prend shreck
+        //Chaque objet etant differents ils impacterons eux meme le hero pour eviter de faire tout les cas possible
+
+        if (item.getName().equals("MEAL")){
+
+            this.addHealth(item.getBonusHealth());
+            this.currentBag.suppItemInBag(item.getName()); //Je le supprime de mon sac
+        }
     
     
 }
+    }

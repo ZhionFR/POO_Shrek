@@ -28,6 +28,9 @@ public class Items {
         this.bonusAttackSpeed = bonusAttackSpeed;
     }
 
+
+    //***********************************GETTEUR****************************
+
     public double getVolume() {
         return volume;
     }
@@ -59,6 +62,8 @@ public class Items {
     public int getBonusAttackSpeed() {
         return bonusAttackSpeed;
     }
+
+    //****************************SETTEUR*****************************************
 
     public void printName() {
         System.out.println(this.name);
@@ -101,5 +106,16 @@ public class Items {
             shrek.addHealth(bonusHealth);
         }
     }
+
+
+    /* AUTANT LA LAISSER DANS LE MAIN
+    //Valable pour tout les items
+    public void impactHero(Hero shrek) {
+
+        if (this.name.equals("MEAL")){
+
+
+        }
+    }*/
 
 }

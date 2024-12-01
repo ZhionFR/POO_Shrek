@@ -27,7 +27,48 @@ public class Bags extends Items {
         }
     }
 
+    //************************GETTEUR *****************************************
     public List<Items> getItems() {
         return items;
     }
+
+    public Items getItem(String name) {
+        for (Items item : items) {
+            if (item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    //*********************SETTEUR**********************************
+
+    //Ajout d'un items dans mon sac
+    public void addItemsInBag(Items items) {
+        System.out.println("Vous avez ajouté dans votre sac l'item :"+ items.getName());
+        this.items.add(items);
+
+    }
+
+    public void suppItemInBag(String item){
+        for (int i = 0; i < items.size(); i++) {
+
+            if (items.get(i).getName().equals(item)) {
+               items.remove(i);
+            }
+        }
+
+    }
+
+    public boolean isItemsInBag(String item) {
+
+        for (int i = 0; i < this.items.size(); i++) {
+
+            if (this.items.get(i).getName().equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

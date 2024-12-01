@@ -74,6 +74,25 @@ public class Location {
         return null;
     }
 
+
+    //Retourner l'item voulus
+   /* public Items getItems(Items itemWanted) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getName().equals(itemWanted)) {
+                return this.items.get(i);
+            }
+        }
+    }*/
+    public Items getItems(String itemWanted) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getName().equals(itemWanted)) {
+                return this.items.get(i);
+            }
+        }
+        return null;
+    }
+
+
     //***********************SETTEUR ****************
 
     //Ajout lors de l'initialisation surtout.
@@ -102,13 +121,16 @@ public class Location {
 
     public void ajoutItems(Items item){
         this.items.add(item);
-        System.out.println("Sac ajouter dans le lieu.");
     }
 
     //Appele lorsque mon hero prends un items dans le lieu
-    public void suppItems(Items item){
-        this.items.remove(item);
-        System.out.println("Sac supprimer du lieu.");
+    public void suppItems(String item){
+
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getName().equals(item)) {
+                this.items.remove(i);
+            }
+        }
     }
 
     //*******************************FONCTION**********************************
