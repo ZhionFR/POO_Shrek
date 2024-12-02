@@ -36,15 +36,7 @@ public class  Door {
 
 
     //**************************FONCTIONS*********************
-    public Location otherSide(Location currentLocation) {
 
-
-        if (currentLocation == locationA) {
-            return locationB;
-
-        }else return locationA;
-
-    }
 
 
 

@@ -9,7 +9,7 @@ public class Bags extends Items {
     private List<Items> items;
 
     public Bags(double Capacity, String name) {
-        super(name, false, -1, 0, 0, 0,
+        super(name, true, -1, 0, 0, 0,
                 0, 0, 0);
         this.Capacity = Capacity;
         this.items = new ArrayList<Items>();
@@ -65,9 +65,11 @@ public class Bags extends Items {
         for (int i = 0; i < this.items.size(); i++) {
 
             if (this.items.get(i).getName().equals(item)) {
+            	System.out.println("Tu as deja l'item : "+item);
                 return true;
             }
         }
+        System.out.println("Tu n'as pas encore l'item "+item+" dans ton sac !!");
         return false;
     }
 

@@ -21,6 +21,7 @@ public class Character {
     }
 
     //*******************GETTEUR*******************************
+
     public String getName() {
         return name;
     }

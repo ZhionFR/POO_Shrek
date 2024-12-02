@@ -27,7 +27,12 @@ public class Hero extends Character {
 
     //***********************GETTEURS***************************
     public boolean hasBag() {
-        return this.bag;
+        if (this.bag){
+            return this.bag;
+        }else {
+            System.out.println("Hero does not have a bag");
+            return false;
+        }
     }
 
     //La location de mon hero
@@ -41,12 +46,26 @@ public class Hero extends Character {
     }
 
 
+
     //************************SETTEUR****************************
     public void changeCurrentLocation(Location B){
 
-        this.currentLocation = B;
+            this.currentLocation = B;
 
     }
+    /*
+    public void changeCurrentLocationLock(Location B){
+
+        //La porte menant a B peut etre franchis !!!
+        if (this.currentLocation.getDoorOfLocation(B.getNameLoc()).getCanCross()){
+
+            this.currentLocation = B;
+        }else {
+
+            System.out.println("Vous ne pouvez pas passe. Essayer de decouvrir autour de vous. Tapez LOOK pour voir les interactions lieu... ");
+        }
+
+    }*/
     
     //change la possession ou non du sac sur mon hero
     public void changeBag() {

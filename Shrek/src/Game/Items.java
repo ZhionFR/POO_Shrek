@@ -63,6 +63,18 @@ public class Items {
         return bonusAttackSpeed;
     }
 
+    //Savoir si un item peut etre porte ou non (par exemple chat poté)
+    public boolean getPortable() {
+        if (this.portable){
+            System.out.println("L'item"+this.name+" est portable !!!");
+            return portable;
+        }else {
+            System.out.println("Ton items n'est pas/pas encore portable");
+            return false;
+        }
+
+    }
+
     //****************************SETTEUR*****************************************
 
     public void printName() {
