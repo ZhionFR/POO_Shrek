@@ -11,66 +11,54 @@ public class Character
     private int accuracy;
     private int attackSpeed;
 
-    public Character(String name, int maxHealth, int strength)
+    public Character(String name, int maxHealth, int strength, int health)
     {
         this.name = name;
         this.maxHealth = maxHealth;
-        this.health = 350; //Permet d'atteindre la maxHealth en mangeant le repas
+        this.health = 350; //Not set as max because can be load to max with something to eat
         this.armor = 0;
         this.strength = strength;
         this.accuracy = 95;
         this.attackSpeed = 100;
     }
 
-    //*******************GETTEUR*******************************
-
     public String getName()
     {
         return name;
     }
-
     public int getMaxHealth()
     {
         return maxHealth;
     }
-
     public int getHealth()
     {
         return health;
     }
-
     public int getArmor()
     {
         return armor;
     }
-
     public int getStrength()
     {
         return strength;
     }
-
     public int getAccuracy()
     {
         return accuracy;
     }
-
     public int getAttackSpeed()
     {
         return attackSpeed;
     }
 
-    //******************SETTEUR*****************************
     public void addMaxHealth(int max)
     {
         this.maxHealth += max;
     }
-
     public void addHealth(int max)
     {
-
         if (this.health < this.maxHealth)
         {
-
             this.health += max;
             if (this.health > this.maxHealth)
             {
@@ -82,40 +70,32 @@ public class Character
         {
             System.out.println("Votre sante est deja au max ");
         }
-
     }
-
     public void addArmor(int max)
     {
         this.armor += max;
     }
-
     public void addStrength(int max)
     {
         this.strength += max;
     }
-
-    //Probleme on peut avoir une augmentation de 105, 120 !!!!
+    // TODO: Check the augmentation to 105
     public void addAccuracy(int max)
     {
-
         if (this.accuracy < 100)
         {
-
             this.accuracy += max;
-
             if (this.accuracy > 100)
             {
                 this.accuracy = 100;
             }
             System.out.println("Votre précision actuelle est : " + this.accuracy);
-        }else {
-            
-        	
+        }
+        else
+        {
         	System.out.println("Vous vous etes assez reposés !!!");
         }
     }
-
     public void addAttackSpeed(int max)
     {
         this.attackSpeed += max;
@@ -128,7 +108,7 @@ public class Character
             target.isDead();
         }
     }
-
+    
     public void isDead()
     {
         // TODO
