@@ -3,9 +3,9 @@ package Game;
 public class  Door
 {
 
-    private String nameDoor;
-    private Location locationA;
-    private Location locationB;
+    private final String nameDoor;
+    private final Location locationA;
+    private final Location locationB;
 
     public Door(String name,Location locationA, Location locationB)
     {

@@ -2,127 +2,104 @@ import java.util.*;
 
 import Game.*;
 
-
 public class Main
 {
-
-
     public static void goFonction(Hero shrek,String lieu2)
     {
-
         if (!shrek.getCurrentLocation().getNameLoc().equals(lieu2))
         {
-
-            //Verifie porte normal et locked aussi
-            //  if (shrek.getCurrentLocation().hasDoorGoTo(lieu2))
-            //  {
+            //Checked normal and locked Doors
             if (shrek.getCurrentLocation().hasDoorGoTo(lieu2))
             {
-                System.out.println("Il existe bien une porte menant au lieu.");
+                System.out.println("There's a door to go to this location.");
 
-                //Je chope ma location du lieu grace a la porte qui y va.
+                //I take the location thanks to the door linked to it.
                 shrek.changeCurrentLocation(shrek.getCurrentLocation().getLocationDoor(lieu2));
-                System.out.println("Je suis a : " + shrek.getCurrentLocation().getNameLoc());
-
+                System.out.println("I'm in : " + shrek.getCurrentLocation().getNameLoc());
             }
             else
             {
-                System.out.println("Tu ne peux pas passer OH non !!!");
+                System.out.println("You can't go there.");
             }
         }
         else
         {
-            System.out.println("Vous etes deja dans "+lieu2+" !!!!");
+            System.out.println("You're already in " + lieu2 + " !");
         }
     }
 
-
-
-    //Prend tout  objet dans le sac
     public static void takeFonction(Hero shrek, String cmd2)
     {
         if (cmd2.equals("BAG"))
         {
             if (shrek.hasBag())
-            { //Il a le bag
-                System.out.println("J'ai deja le sac !!!");
-                //Do nothing
+            {
+                System.out.println("I already have this bag.");
             }
             else
             {
+                shrek.changeBag(); //Change the boolean for the bag's possession
 
-                shrek.changeBag(); //Change l ebool de possion de sac.
+                //Hero take the bag from the location
+                shrek.addBag(shrek.getCurrentLocation().getBags());
 
-                //Mon hero prend le sac du lieu
-                shrek.ajouteBag(shrek.getCurrentLocation().getBags());
+                //The bag is deleted from the location
+                shrek.getCurrentLocation().delItems(shrek.getCurrentBag().getName());
 
-                //Le sac se voit etre supprimé du lieu
-                shrek.getCurrentLocation().suppItems(shrek.getCurrentBag().getName());
-
-                System.out.println("J'ai pris le sac !!!");
+                System.out.println("The bag is taken.");
             }
         }
         else
         {
-
-            //ATTENTION IL FAUDRAI QUE JE CHECK SI J AI DEJZ PRIS OU PAS L'ITEMS
-            //Il a bien un sac avant de mettre un objet
-            if ( shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getPortable()  )
-            {//Si items pas present dans le sac  et que se dernier est portable
-
-                //Retourner l'items des souris de la location dans le sac et le supprimer de la location.
+            // WARNING: We need to check if the items are already taken or not.
+            // We need a bag if we want to store items in it.
+            if ( shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getWearable()) //If items are not in the bag, and that it's wearable :
+            {
+                // Add the items from the location in the bag
                 shrek.addItemInBag(shrek.getCurrentLocation().getItems(cmd2));
 
-                //Suppression de l'item de souris de mon lieu
-                shrek.getCurrentLocation().suppItems(cmd2);
-                System.out.println("J'ai pris l'objet : "+cmd2);
-
+                // Delete the item from the location.
+                shrek.getCurrentLocation().delItems(cmd2);
+                System.out.println(cmd2 + " is taken.");
             }
             else
             {
-                System.out.println("Tu as deja l'item/alors il n'est pas encore portabl/Tu n'as pas de sac");
+                System.out.println("You can have it on you.");
             }
         }
     }
 
-    //Poser tout objet contenue dans le sac.
+    // Drop every object from his bag.
     public static void downFonction(Hero shrek,String cmd2)
     {
         if (cmd2.equals("BAG"))
         {
-            if (!shrek.hasBag())
-            {//N'a pas le sac !!!!
-
-                System.out.println("J'ai pas le sac !!!");
-                //Do nothing
-
+            if (!shrek.hasBag()) // Don't have the bag.
+            {
+                System.out.println("I don't have a backpack.");
+                // Do nothing
             }
             else
             {
-
                 shrek.changeBag();
+                // Add the item in the location.
+                shrek.getCurrentLocation().addItems(shrek.getCurrentBag());
 
-                //J'ajoute l'item dans le lieu.
-                shrek.getCurrentLocation().ajoutItems(shrek.getCurrentBag());
-
-                //Mon hero se voit poser le sac
-                shrek.retirerBag();
-                System.out.println("J'ai posé mon sac !!");
+                // Hero drop his bag.
+                shrek.removeBag();
+                System.out.println("I drop my bag.");
             }
         }
         else
         {
+            if (shrek.getCurrentBag().isItemsInBag(cmd2)) // If items are in the bag
+            {
+                // Add the item from the bag to the current location.
+                shrek.getCurrentLocation().addItems(shrek.getCurrentBag().getItem(cmd2));
 
-            if (shrek.getCurrentBag().isItemsInBag(cmd2))
-            {//Si items present dans le sac
-
-                //Ajouter l'item renvoyer par le sac dans le lieu
-
-                shrek.getCurrentLocation().ajoutItems(shrek.getCurrentBag().getItem(cmd2));
-
-                //Suppression dans mon sac de l'item
+                // Delete the item from the bag.
                 shrek.getCurrentBag().suppItemInBag(cmd2);
-                System.out.println("J'ai posé  dans le lieu l'objet : "+cmd2);
+                System.out.println("I dropped " + cmd2);
             }
         }
     }
@@ -131,77 +108,77 @@ public class Main
     {
         if (cmd2.equals("BED"))
         {
-            shrek.addAccuracy(5);
-            //Afficher le texte de telle numero
+            System.out.println("This is maybe not the moment to sleep...");
             //afficherText(2); //C'est bien dormir
         }else if(cmd2.equals("WC"))
         {
-            //EASTER egg des toilettes
-            //affichertext(x);
+            // Toilet's easter-egg
+            //displayText(x);
             System.out.println("Somebody.....");
-        }else
-
-            //Peut import l'item rentré s'il est dans le sac.
+        }
+        else
+        {
+            // If item is in the bag
             if (shrek.getCurrentBag().isItemsInBag(cmd2))
             {
-                //utilisatiion de se dernier.
+                // Use it
                 shrek.useItem(shrek.getCurrentBag().getItem(cmd2));
-                //Supprimer l'item du sac de shrek
+                // Delete item
                 shrek.getCurrentBag().suppItemInBag(cmd2);
             }
             else
             {
-                System.out.println("Tu ne possèdes pas l'item dans le sac");
+                System.out.println("You don't have this item in your bag.");
             }
+        }
     }
 
 
     public static void speakFonction(Hero shrek,String cmd2)
     {
         if (cmd2.equals("DONKEY"))
-        { //surement utiliser seulement au debut.
-            //Faire parler l'anner
-            //afficher texte ane jsp quoi
+        { // Maybe used only at the start
+            // TODO: Need to have the function and the text
         }
-        // ATTENTION / IL NE PEUT PAS PARTIR DU MARAIS SI IL N A PAS PARLER A LA FOULE
+        // WARNING : We can't leave the swamp if we don't have spoken with the crowd
         if (cmd2.equals("STORYTELLER"))
         {
-            //FAire parler le conteur
-            //afficher texte du story teller
-            //ATTENTION CELA MET SUR TRUE L ACCE EN DEHORS DU MARAIS
-            //On oblige ainsi de connaitre l'histoire en allant voir le story teller
+            // TODO: Need to have the function and the text
+
+            // WARNING : We can now leave the swamp
+            // This to be able to force the player to ear the story before he starts playing.
             //shrek.getCurrentLocation().getLocationDoor("FOREST").;
             shrek.getCurrentLocation().getDoorOfLocation("FOREST").setCanCross(true);
-            System.out.println("je peux aller a forest ? : "+shrek.getCurrentLocation().getDoorOfLocation("FOREST").getCanCross());
+            System.out.println("Can I go to the forest ? : " + shrek.getCurrentLocation().getDoorOfLocation("FOREST").getCanCross());
         }
     }
 
     public static void lookFonction(Hero shrek)
     {
-        //Description du lieu.
+        // Location's description
         shrek.getCurrentLocation().lookLocation();
-        //OU alors faire une liste deja toute prete !!!!!!
-        //ON devrait plutot partir sur item et description du lieu par texte. !!!!!!!!
+        // OR we do an already existing list.
+        // OR we can go on item + description for the location by text.
     }
 
     public static void main(String[] args)
     {
-        //INitialisation lieux
+        // Location initializing
 
-        Location maison = new Location("MAISON");
-        Location marais = new Location("MARAIS");
+        Location house = new Location("HOUSE");
+        Location swamp = new Location("SWAMP");
 
-        Door MAIS_MARA = new Door("MAIS_MARA",maison, marais);
-        Hero shrek = new Hero(maison);//Shreck a pour location maison
+        Door HOUSE_SWAMP = new Door("HOUSE_SWAMP", house, swamp);
+        Hero shrek = new Hero(house); // Shrek's current location is the house
 
-        //Ajout portes
-        maison.ajouterDoor(MAIS_MARA);
-        marais.ajouterDoor(MAIS_MARA);
+        // Add Doors
+        house.addDoor(HOUSE_SWAMP);
+        swamp.addDoor(HOUSE_SWAMP);
 
 
-        //Commandes dans maison.
+        // Commands available in the house.
         Commands GO = new Commands("GO");
-        Commands MARAIS = new Commands("MARAIS");
+        Commands SWAMP = new Commands("SWAMP");
         Commands BED = new Commands("BED");
         Commands MEAL = new Commands("MEAL");
         Commands BAG = new Commands("BAG");
@@ -210,33 +187,33 @@ public class Main
         Commands USE = new Commands("USE");
         Commands MOUTHBLIND = new Commands("MOUTHBLIND");
         Commands PUSSINBOOTS = new Commands("PUSSINBOOTS");
-        Commands MAISON = new Commands("MAISON");
+        Commands HOUSE = new Commands("HOUSE");
         Commands LOOK = new Commands("LOOK");
-        //Game.Items dans maison
 
+        // Items available in the house.
         Bags bag = new Bags(200.0,"BAG");
-        Items meal = new Items("MEAL",true,20,0,50,0,0,0,0);
+        Items meal = new Items("MEAL",true,20,0,50,0);
 
-        //AJOUT de tout dans le lieu
-        maison.ajoutCommands(GO);
-        maison.ajoutCommands(MARAIS);
-        maison.ajoutCommands(MAISON);
-        maison.ajoutCommands(TAKE);
-        maison.ajoutCommands(MEAL);
-        maison.ajoutCommands(BAG);
-        maison.ajoutCommands(BED);
-        maison.ajoutCommands(DOWN);
-        maison.ajoutCommands(USE);
-        maison.ajoutCommands(MOUTHBLIND);
-        maison.ajoutCommands(PUSSINBOOTS);//Enfaite je peux utiliser des items venant d'autres lieux
-        maison.ajoutCommands(LOOK);
+        // Add everything to the location
+        house.addCommands(GO);
+        house.addCommands(SWAMP);
+        house.addCommands(HOUSE);
+        house.addCommands(TAKE);
+        house.addCommands(MEAL);
+        house.addCommands(BAG);
+        house.addCommands(BED);
+        house.addCommands(DOWN);
+        house.addCommands(USE);
+        house.addCommands(MOUTHBLIND);
+        house.addCommands(PUSSINBOOTS); // In fact, I can use items from other locations.
+        house.addCommands(LOOK);
 
-        maison.ajoutItems(bag);
-        maison.ajoutItems(meal);
+        house.addItems(bag);
+        house.addItems(meal);
 
 
 
-        //Commandes dans marais
+        // Swamp's commands
         Commands DONKEY = new Commands("DONKEY");
         Commands WC = new Commands("WC");
         Commands LAKE = new Commands("LAKE");
@@ -244,94 +221,93 @@ public class Main
         Commands SPEAK = new Commands("SPEAK");
         Commands FOREST = new Commands("FOREST");
 
-        Items mouthBlind = new Items("MOUTHBLIND",true,20.0,0,0,0,0,20,5);
+        Items mouthBlind = new Items("MOUTHBLIND",true,20.0,0,0,0);
 
-        marais.ajoutCommands(GO);
-        marais.ajoutCommands(MAISON);
-        marais.ajoutCommands(MARAIS);
-        marais.ajoutCommands(BAG);
-        marais.ajoutCommands(DONKEY);
-        marais.ajoutCommands(WC);
-        marais.ajoutCommands(LAKE); //PAS ENCORE FAIS !!!!!!!!!
-        marais.ajoutCommands(STORYTELLER);
-        marais.ajoutCommands(MOUTHBLIND);
-        marais.ajoutCommands(DOWN);
-        marais.ajoutCommands(TAKE);
-        marais.ajoutCommands(SPEAK);
-        marais.ajoutCommands(FOREST);
-        marais.ajoutCommands(LOOK);
-        marais.ajoutCommands(USE);
+        swamp.addCommands(GO);
+        swamp.addCommands(HOUSE);
+        swamp.addCommands(SWAMP);
+        swamp.addCommands(BAG);
+        swamp.addCommands(DONKEY);
+        swamp.addCommands(WC);
+        swamp.addCommands(LAKE); // TODO: Not done
+        swamp.addCommands(STORYTELLER);
+        swamp.addCommands(MOUTHBLIND);
+        swamp.addCommands(DOWN);
+        swamp.addCommands(TAKE);
+        swamp.addCommands(SPEAK);
+        swamp.addCommands(FOREST);
+        swamp.addCommands(LOOK);
+        swamp.addCommands(USE);
 
-        marais.ajoutItems(mouthBlind);
+        swamp.addItems(mouthBlind);
 
-        //Ajout compagnon
+        // Add companion
 
         /*
-        Game.Compagnion DONKEY = new Game.Compagnion("Donkey",20,10);
-
-        //PROBLEME : devrait ajouter un compagnon car il secend de caractere. ah non
-        marais.ajouterCharacter(DONKEY);
-        */
+         * Game.Companion DONKEY = new Game.Companion("Donkey",20,10);
+         * // WE NEED to add the companions bcs he inherits from character.
+         * swamp.ajouterCharacter(DONKEY);
+         * */
 
         Location forest = new Location("FOREST");
 
-        LockDoor MARAIS_FOREST = new LockDoor("MARAIS_FOREST",marais,forest,false);
+        LockDoor SWAMP_FOREST = new LockDoor("SWAMP_FOREST", swamp,forest,false);
 
-        marais.ajouterDoor(MARAIS_FOREST);
+        swamp.addDoor(SWAMP_FOREST);
 
-        forest.ajouterDoor(MARAIS_FOREST);//Ajouter la porte vers la foret dans le marais
+        forest.addDoor(SWAMP_FOREST);
+
+        // Add the door to the forest to the swamp
 
         Commands FIGHT = new Commands("FIGHT");
         Commands BRIDGE = new Commands("BRIDGE");
 
-        //LA portabilité du chat sera changer apres le fight
-        Items pussinboots = new Items("PUSSINBOOTS",false,20,0,0,0,50,0,0);
+        // The fact that the cat will be in our inventory will be changed after the fight.
+        Items pussinboots = new Items("PUSSINBOOTS",false,20,0,0,50);
 
-        forest.ajoutCommands(GO);
-        forest.ajoutCommands(MARAIS);
-        forest.ajoutCommands(TAKE);
-        forest.ajoutCommands(MEAL);
-        forest.ajoutCommands(BAG);
-        forest.ajoutCommands(DOWN);
-        forest.ajoutCommands(USE);
-        forest.ajoutCommands(MOUTHBLIND);
+        forest.addCommands(GO);
+        forest.addCommands(SWAMP);
+        forest.addCommands(TAKE);
+        forest.addCommands(MEAL);
+        forest.addCommands(BAG);
+        forest.addCommands(DOWN);
+        forest.addCommands(USE);
+        forest.addCommands(MOUTHBLIND);
+
+        forest.addCommands(PUSSINBOOTS);
+        forest.addCommands(FIGHT);// In the fight it'll have conversations.
+        forest.addCommands(BRIDGE);
+
+        forest.addItems(pussinboots);
 
 
-        forest.ajoutCommands(PUSSINBOOTS);
-        forest.ajoutCommands(FIGHT);// DANS LE FIGHT IL Y AURA LES DIALOGUES
-        forest.ajoutCommands(BRIDGE);
-
-        forest.ajoutItems(pussinboots);
-
-
-        int fin = 1;
-        while (fin>0)
+        int end = 1;
+        while (end>0)
         {
-            //test changement de location. System.out.println(shrek.getCurrentLocation().getNameLoc());
+            // Test changement of locations. System.out.println(shrek.getCurrentLocation().getNameLoc());
 
-            String arg1; //exemple : 'GO'
-            String arg2; //exemple : 'MARAIS'
+            String arg1; // Example : 'GO'
+            String arg2; // Example : 'SWAMP'
 
             Scanner sc = new Scanner(System.in);
-            System.out.println("Veuillez saisir votre choix :");
+            System.out.println("Your choice : ");
             String str = sc.nextLine();
             String arg[] = str.split(" ");
 
 
-            //Commande --> Dpot devenir la Game.Commands de la forme du dessus.
+            // Command -> Need to be the Game.Commands (cf. top)
 
             arg1 = arg[0];
             arg2 = null;
 
             if (arg.length == 1)
             {
-                //Ici je peux avoir seulement une commande rentré et pas en attendre deux
+                // Here I can only have a command, I can't have two or more.
                 if (arg1.equals("QUIT"))
                 {
-                    System.out.println("Tu as decider d'arreter le jeux !!!!Ciao");
+                    System.out.println("The game will close. So long Shrek !");
                     break;
                 }
-
                 if (arg1.equals("LOOK"))
                 {
                     lookFonction(shrek);
@@ -340,27 +316,26 @@ public class Main
             else
             {
                 arg2=arg[1];
-                //les commandes rentré sont elle presente dans le lieu ou mon personnage se trouve. ou dans le sac
-                if (shrek.getCurrentLocation().isCommandsPresent(arg1) &&(shrek.getCurrentLocation().isCommandsPresent(arg2) || shrek.getCurrentBag().isItemsInBag(arg2) ))
+                // The commands will be present in my character's location.
+                if (shrek.getCurrentLocation().isCommandsPresent(arg1) &&(shrek.getCurrentLocation().isCommandsPresent(arg2) || shrek.getCurrentBag().isItemsInBag(arg2)))
                 {
-                    shrek.getCurrentLocation().hasDoorGoTo("MARAIS");
-                    //Utilisateur a tapé GO et une des portes mene a la localisation voulu.
+                    shrek.getCurrentLocation().hasDoorGoTo("SWAMP");
+                    // If user use "GO" and a door lead to the wanted location
                     if (arg1.equals("GO"))
                     {
                         goFonction(shrek, arg2);
                     }
-                    //Prend take et fait induir l'action sur le monde de shrek (location/items..)
+                    // If user use "TAKE", it'll affect the location/inventory.
                     if (arg1.equals("TAKE"))
                     {
                         takeFonction(shrek, arg2);
                     }
-
                     if (arg1.equals("DOWN"))
                     {
                         downFonction(shrek, arg2);
                     }
-                    //Augmenter la vie du perso qui n'aura pas ete mis au max a son initislisation.
-                    //Commande encore presente dans la location du hero
+                    // Add the Hero's life which wasn't at the maximum when initializing.
+                    // Command in the Hero's location
                     if (arg1.equals("USE"))
                     {
                         useFonction(shrek, arg2);
@@ -368,7 +343,7 @@ public class Main
 
                     if (arg1.equals("SPEAK"))
                     {
-                        //Parle a un perso
+                        // Speak to a character.
                         speakFonction(shrek, arg2);
                     }
                 }

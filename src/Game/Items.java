@@ -5,29 +5,22 @@ public class Items
 
     private final String name;
     private final double volume;
-    private final boolean portable;
+    private final boolean wearable;
     private boolean isEquipped;
 
     private final int bonusMaxHealth;
     private final int bonusHealth; // only if item can heal
-    private final int bonusArmor;
     private final int bonusStrength;
-    private final int bonusAccuracy;
-    private final int bonusAttackSpeed;
 
-    public Items(String name, boolean portable, double volume, int bonusMaxHealth, int bonusHealth,
-                 int bonusArmor, int bonusStrength, int bonusAccuracy, int bonusAttackSpeed)
+    public Items(String name, boolean wearable, double volume, int bonusMaxHealth, int bonusHealth, int bonusStrength)
     {
         this.name = name;
         this.volume = volume;
-        this.portable = portable;
+        this.wearable = wearable;
         this.isEquipped = false;
         this.bonusMaxHealth = bonusMaxHealth;
         this.bonusHealth = bonusHealth;
-        this.bonusArmor = bonusArmor;
         this.bonusStrength = bonusStrength;
-        this.bonusAccuracy = bonusAccuracy;
-        this.bonusAttackSpeed = bonusAttackSpeed;
     }
 
     public double getVolume()
@@ -46,49 +39,35 @@ public class Items
     {
         return bonusHealth;
     }
-    public int getBonusArmor()
-    {
-        return bonusArmor;
-    }
     public int getBonusStrength()
     {
         return bonusStrength;
     }
-    public int getBonusAccuracy()
-    {
-        return bonusAccuracy;
-    }
-    public int getBonusAttackSpeed()
-    {
-        return bonusAttackSpeed;
-    }
 
-    //Savoir si un item peut etre porte ou non (par exemple chat poté)
-    public boolean getPortable()
+    // Used to know if an item is wearable or not.
+    public boolean getWearable()
     {
-        if (this.portable){
-            System.out.println("L'item"+this.name+" est portable !!!");
-            return portable;
+        if (this.wearable){
+            System.out.println("The " + this.name + " is wearable.");
+            return wearable;
         }
         else
         {
-            System.out.println("Ton items n'est pas/pas encore portable");
+            System.out.println("You can't wear this item.");
             return false;
         }
 
     }
 
-    //****************************SETTEUR*****************************************
-
     public void printName()
     {
         System.out.println(this.name);
     }
-    public boolean getequipped()
+    public boolean getEquipped()
     {
         return isEquipped;
     }
-    public void setequipped(boolean equipped)
+    public void setEquipped(boolean equipped)
     {
         if (volume == -1) {
             isEquipped = equipped;
@@ -96,26 +75,20 @@ public class Items
     }
     public void equip(Hero shrek)
     {
-        if (this.portable) {
+        if (this.wearable) {
             isEquipped = true;
             shrek.addMaxHealth(bonusMaxHealth);
-            shrek.addArmor(bonusArmor);
             shrek.addStrength(bonusStrength);
-            shrek.addAccuracy(bonusAccuracy);
-            shrek.addAttackSpeed(bonusAttackSpeed);
         }
     }
 
-    public void unequip(Hero shrek)
+    public void unEquip(Hero shrek)
     {
         if (this.isEquipped)
         {
             isEquipped = false;
             shrek.addMaxHealth(-bonusMaxHealth);
-            shrek.addArmor(-bonusArmor);
             shrek.addStrength(-bonusStrength);
-            shrek.addAccuracy(-bonusAccuracy);
-            shrek.addAttackSpeed(-bonusAttackSpeed);
         }
     }
 
@@ -128,8 +101,8 @@ public class Items
     }
 
 
-    /* AUTANT LA LAISSER DANS LE MAIN
-    //Valable pour tout les items
+    /* LET THIS IS MAIN
+    //Available for all the items
     public void impactHero(Game.Hero shrek) {
 
         if (this.name.equals("MEAL")){

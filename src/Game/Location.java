@@ -6,10 +6,10 @@ import java.util.List;
 public class Location
 {
 
-    private String nameLoc;
-    private List<Door> next;
-    private List<Commands> commands;
-    private List<Game.Character> characters;
+    private final String nameLoc;
+    private final List<Door> next;
+    private final List<Commands> commands;
+    private final List<Game.Character> characters;
     private List<Items> items;
 
     public Location(String name)
@@ -22,7 +22,7 @@ public class Location
 
     }
 
-    //Renvoi le lieu voulus si la localisation appelé a une porte menant sur se lieux.
+    // Return the wanted location if a door lead to this location.
     public Location getLocationDoor(String placeWanted)
     {
 
@@ -35,15 +35,12 @@ public class Location
                 return this.next.get(i).getLocationA();
             }
         }
-        //ATTENTION : que revoyer si lieu pas present a travers porte.
+        // WARNING : Return null if there's no location behind the door.
         return null;
     }
-
-
-
-    //retourne la porte fermé menant au lieu voulus.
-    //ATTENTION NE FONCTIONNE QUE POUR LES PORTES FERMéES sans accées direct
-    //On renvoit une porte  que pour lock !!!!
+    // Return the closed door which lead to the wanted location.
+    // WARNING : This work only on the closed doors without direct access
+    // We return a door just for lock.
     public LockDoor getDoorOfLocation(String placeWanted)
     {
         for (int i = 0; i < this.next.size(); i++)
@@ -61,23 +58,23 @@ public class Location
         return this.nameLoc;
     }
 
-    //Renvoi le sac present dans le lieu
+    // Return the bag in the current location
     public Bags getBags() {
         for (int i = 0; i < this.items.size(); i++)
         {
-            // Vérifie si l'élément est une instance de Game.Bags
+            // Check if the element is an instance of Bags
             if (this.items.get(i) instanceof Bags)
             {
-                System.out.println("Sac renvoyé par le lieu.");
-                return (Bags) this.items.get(i); // Cast sûr après vérification
+                System.out.println("The location give a bag.");
+                return (Bags) this.items.get(i); // Obvious cast after verification
             }
         }
-        System.out.println("Aucun sac trouvé dans ce lieu.");
+        System.out.println("Can't find a bag in this location.");
         return null;
     }
 
 
-    //Retourner l'item voulus
+    // Return the wanted item
     public Items getItems(String itemWanted)
     {
         for (int i = 0; i < this.items.size(); i++)
@@ -87,48 +84,47 @@ public class Location
                 return this.items.get(i);
             }
         }
-        System.out.println("L'item "+itemWanted+" n'est pas present dans ma location.(Ou alors n'est tout simplement pas un item)");
+        System.out.println(" The " + itemWanted + " is not here, or this is not an item at all.");
         return null;
     }
-    //PROBLEME SI L UTILISATEUR PREND LE NOM DES LIEUX POUR UN ITEM
+    // Error if the user use a location's name instead of an item's one
 
 
-    //Ajout lors de l'initialisation surtout.
-    //Ajout d'un caractere
+    // Initialization adding
+    // Add a character
     public void ajouterCharacter(Game.Character ch)
     {
         this.characters.add(ch);
     }
 
 
-    //Ajout d'une porte dans ma localisation
-    public void ajouterDoor(Door door)
+    // Add a door to my location
+    public void addDoor(Door door)
     {
         this.next.add(door);
     }
 
-    //Ajout de commandes
-    public void ajoutCommands(Commands cmd)
+    // Add a command
+    public void addCommands(Commands cmd)
     {
         this.commands.add(cmd);
 
     }
 
-    public void suppCommands(Commands cmd)
+    public void delCommands(Commands cmd)
     {
         this.commands.remove(cmd);
     }
 
-    //Peut etre ajout compagnon ????!!!!!!
+    // Maybe Companion ?
 
-
-    public void ajoutItems(Items item)
+    public void addItems(Items item)
     {
         this.items.add(item);
     }
 
-    //Appele lorsque mon hero prends un items dans le lieu
-    public void suppItems(String item)
+    // Call when my Hero take an object from a location
+    public void delItems(String item)
     {
         for (int i = 0; i < this.items.size(); i++)
         {
@@ -140,10 +136,7 @@ public class Location
     }
 
 
-
-    //*******************************FONCTION**********************************
-
-    //Ma locatlisation possede la porte demandé par l'utilisateur
+    // My location have a door asked by the user.
     /*
     public boolean isDoorGoTo(String door){
 
@@ -160,31 +153,30 @@ public class Location
     {
         for (Door d : this.next)
         {
-            // Vérifie si la porte mène au lieu voulu
+            // Check if the door leads to the location
             boolean leadsToDesiredLocation = d.getLocationA().getNameLoc().equals(door) || d.getLocationB().getNameLoc().equals(door);
 
             if (leadsToDesiredLocation)
             {
-                // Si la porte est une Game.LockDoor, vérifier si elle est traversable
                 if (d instanceof LockDoor)
                 {
-                    LockDoor lockDoor = (LockDoor) d; // Cast en Game.LockDoor
+                    LockDoor lockDoor = (LockDoor) d;
                     if (lockDoor.getCanCross())
                     {
-                        return true; // La porte mène au lieu voulu et est traversable
+                        return true; // The door lead to the wanted location and can be crossed
                     }
                 }
                 else
                 {
-                    return true; // La porte normale mène au lieu voulu
+                    return true; // The normal door lead to the wanted location
                 }
             }
         }
-        return false; // Aucune porte menant au lieu voulu n'est valide
+        return false; // No valid door
     }
 
 
-    //Verifie que les deux commandes peuvent interagir (sont presentent) dans le lieux.
+    // Check that the two commands can interact (if available) in the location
     public boolean isCommandsPresent(String commandUse)
     {
 
@@ -196,50 +188,40 @@ public class Location
                 return true;
             }
         }
-        System.out.println("Commande pas presente dans"+this.nameLoc);
+        System.out.println("This command is not available in " + this.nameLoc);
         return false;
     }
 
 
     public void lookLocation()
     {
-        System.out.println("Game.Location: " + this.nameLoc);
+        System.out.println("You're in " + this.nameLoc);
 
-        //Afficher les portes (next)
-        System.out.println("Doors:");
+        // Display the doors
+        System.out.println("Doors : ");
         for (Door door : this.next)
         {
             System.out.println(" - " + door.getNameDoor());
         }
 
-        /*/Afficher les commandes (commands)
+        /*/ Display the commands
         System.out.println("Game.Commands:");
         for (Game.Commands command : this.commands) {
             System.out.println(" - " + command.cmdName);
         }*/
 
-        //afficher les personnages (characters)
-        System.out.println("Characters:");
+        // Display the characters
+        System.out.println("Characters : ");
         for (Character character : this.characters)
         {
             System.out.println(" - " + character.getName());
         }
 
-        //Afficher les objets (items)
+        // Display the objects
         System.out.println("Game.Items:");
         for (Items item : this.items)
         {
             System.out.println(" - " + item.getName());
         }
     }
-
-
-    /*//a supppp
-    public void isCmdpresent(Game.Commands cmdVoulu) {
-    	for (int i = 0;i<this.commands.size();i++) {
-    		if (this.commands.get(i).getNameCmd().equals(cmdVoulu.getNameCmd()))
-    				System.out.println(this.commands.get(i));
-    	}
-
-    }*/
 }

@@ -6,20 +6,14 @@ public class Character
     private final String name;
     private int maxHealth;
     private int health;
-    private int armor;
     private int strength;
-    private int accuracy;
-    private int attackSpeed;
 
     public Character(String name, int maxHealth, int strength, int health)
     {
         this.name = name;
         this.maxHealth = maxHealth;
-        this.health = 350; //Not set as max because can be load to max with something to eat
-        this.armor = 0;
+        this.health = health; // Not set as max because can be load to max with something to eat
         this.strength = strength;
-        this.accuracy = 95;
-        this.attackSpeed = 100;
     }
 
     public String getName()
@@ -34,21 +28,9 @@ public class Character
     {
         return health;
     }
-    public int getArmor()
-    {
-        return armor;
-    }
     public int getStrength()
     {
         return strength;
-    }
-    public int getAccuracy()
-    {
-        return accuracy;
-    }
-    public int getAttackSpeed()
-    {
-        return attackSpeed;
     }
 
     public void addMaxHealth(int max)
@@ -71,39 +53,14 @@ public class Character
             System.out.println("Votre sante est deja au max ");
         }
     }
-    public void addArmor(int max)
-    {
-        this.armor += max;
-    }
     public void addStrength(int max)
     {
         this.strength += max;
     }
-    // TODO: Check the augmentation to 105
-    public void addAccuracy(int max)
-    {
-        if (this.accuracy < 100)
-        {
-            this.accuracy += max;
-            if (this.accuracy > 100)
-            {
-                this.accuracy = 100;
-            }
-            System.out.println("Votre précision actuelle est : " + this.accuracy);
-        }
-        else
-        {
-            System.out.println("Vous vous etes assez reposés !!!");
-        }
-    }
-    public void addAttackSpeed(int max)
-    {
-        this.attackSpeed += max;
-    }
 
     public void attack(Character target)
     {
-        target.health -= this.strength - target.armor;
+        target.health -= this.strength;
         if (target.health <= 0) {
             target.isDead();
         }

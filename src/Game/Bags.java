@@ -11,8 +11,8 @@ public class Bags extends Items
 
     public Bags(double Capacity, String name)
     {
-        super(name, true, -1, 0, 0, 0,
-                0, 0, 0);
+        super(name, true, -1, 0, 0,
+                0);
         this.Capacity = Capacity;
         this.items = new ArrayList<Items>();
     }
@@ -22,12 +22,9 @@ public class Bags extends Items
     {
         if (!shrek.hasBag())
         {
-            this.setequipped(true);
+            this.setEquipped(true);
             shrek.addMaxHealth(getBonusMaxHealth());
-            shrek.addArmor(getBonusArmor());
             shrek.addStrength(getBonusMaxHealth());
-            shrek.addAccuracy(getBonusAccuracy());
-            shrek.addAttackSpeed(getBonusMaxHealth());
         }
     }
 

@@ -10,7 +10,7 @@ public class Hero extends Character
 
 
     public Hero() {
-        super("Shrek", 400, 15); // example base_health and base_strength
+        super("Shrek", 400, 15, 350); // example base_health and base_strength
         boolean bag = false;
         currentBag = null;
     }
@@ -18,7 +18,7 @@ public class Hero extends Character
     // Place the hero in the house early game.
     public Hero(Location loc)
     {
-        super("Shrek", 400, 15); // example base_health and base_strength
+        super("Shrek", 400, 15, 350); // example base_health and base_strength
         boolean bag = false;
 
         this.currentLocation = loc;
@@ -34,7 +34,7 @@ public class Hero extends Character
         }
         else
         {
-            System.out.println("Game.Hero does not have a bag");
+            System.out.println("You don't have a bag");
             return false;
         }
     }
@@ -55,46 +55,45 @@ public class Hero extends Character
     /*
     public void changeCurrentLocationLock(Game.Location B){
 
-        //La porte menant a B peut etre franchis !!!
+        // The door which leads to B can now be used.
         if (this.currentLocation.getDoorOfLocation(B.getNameLoc()).getCanCross()){
 
             this.currentLocation = B;
         }else {
 
-            System.out.println("Vous ne pouvez pas passe. Essayer de decouvrir autour de vous. Tapez LOOK pour voir les interactions lieu... ");
+            System.out.println("You can't go through. Try to look around you. Use LOOK to see your surroundings. ");
         }
 
     }*/
 
-    //change la possession ou non du sac sur mon hero
+    // Change the Hero's bag possession
     public void changeBag()
     {
         if (this.bag)
         {
             this.bag = false;
-            System.out.println("Sac doit etre posé.");
+            System.out.println("The bag must be dropped.");
         }
         else
         {
             this.bag = true;
-            System.out.println("Sac doit etre pris.");
+            System.out.println("The bag must be taken.");
         }
     }
 
-    //Ajout du sac a mon hero
-    public void ajouteBag(Bags currentBag)
+    // Add a bag to the Hero
+    public void addBag(Bags currentBag)
     {
         this.bag = true;
         this.currentBag = currentBag;
-        System.out.println("Sac recus par le hero.");
+        System.out.println("You have a bag.");
     }
-
-    //Retirer le sac a mon hero
-    public void retirerBag()
+    // Remove the bag from the Hero
+    public void removeBag()
     {
         this.bag = false;
         this.currentBag = null;
-        System.out.println("Sac supprimer de hero.");
+        System.out.println("You don't have a bag anymore.");
 
     }
 
@@ -113,14 +112,13 @@ public class Hero extends Character
     public void useItem(Items item)
     {
 
-        //Faire impacter les caracteristiques de l'item a mon perso.
-        // item.impactHero(this);  //Qui prend shreck
-        //Chaque objet etant differents ils impacterons eux meme le hero pour eviter de faire tout les cas possible
-
+        // Add the item's attributes to the Hero's one
+        // item.impactHero(this);  // Take Shrek
+        // Each object is different, so they'll impact themselves to prevent from doing them all one by one.
         if (item.getName().equals("MEAL"))
         {
             this.addHealth(item.getBonusHealth());
-            this.currentBag.suppItemInBag(item.getName()); //Je le supprime de mon sac
+            this.currentBag.suppItemInBag(item.getName()); // Delete from bag
         }
     }
 }

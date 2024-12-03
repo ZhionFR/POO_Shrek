@@ -4,9 +4,9 @@ public class Text
 {
     int nb;
 
-    //REUNIRA TOUS MES TEXT , IL Y AURA JUSTE A APPELER UN NUMERO
+    // This will reunite all the texts, only need to use a number.
 
-    public void affichertext(int nb)
+    public void displayText(int nb)
     {
 
     }
