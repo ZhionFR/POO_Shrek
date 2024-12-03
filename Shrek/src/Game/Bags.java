@@ -58,7 +58,7 @@ public class Bags extends Items {
             }
         }
 
-    }
+    } 
 
     public boolean isItemsInBag(String item) {
 

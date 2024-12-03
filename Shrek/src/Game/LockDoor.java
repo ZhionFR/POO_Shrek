@@ -5,9 +5,9 @@ public class LockDoor extends Door {
 
     private boolean canCross;
 
-    public LockDoor(Location A,Location B,boolean canCross) {
+    public LockDoor(String nameDoor,Location A,Location B,boolean canCross) {
 
-        super(A,B);
+        super(nameDoor,A,B);
         this.canCross = canCross;
 
     }

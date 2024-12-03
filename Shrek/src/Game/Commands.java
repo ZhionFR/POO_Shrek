@@ -13,4 +13,11 @@ public class Commands {
     public Commands(String cmd) {
         this.cmdName = cmd;
     }
+    
+    
+    
+    //***********Getteur****************
+    public String getNameCmd() {
+    	return cmdName;
+    }
 }

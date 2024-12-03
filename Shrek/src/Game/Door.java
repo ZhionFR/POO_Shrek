@@ -9,15 +9,16 @@ public class  Door {
 
 
     //*************************CONSTRUCTEUR*********************************
-    public Door(Location locationA, Location locationB) {
+    public Door(String name,Location locationA, Location locationB) {
 
         this.locationA = locationA;
         this.locationB = locationB;
+        this.nameDoor = name;
     }
 
 
     //***************************GETTEUR***************
-    public String getnameDoor() {
+    public String getNameDoor() {
 
         return this.nameDoor;
     }

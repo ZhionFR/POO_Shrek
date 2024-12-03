@@ -43,6 +43,7 @@ public class Location {
 
     //retourne la porte fermé menant au lieu voulus.
     //ATTENTION NE FONCTIONNE QUE POUR LES PORTES FERMéES sans accées direct
+    //On renvoit une porte  que pour lock !!!!
     public LockDoor getDoorOfLocation(String placeWanted){
         for (int i = 0; i < this.next.size(); i++){
             if (this.next.get(i).getLocationB().getNameLoc().equals(placeWanted)){
@@ -80,9 +81,10 @@ public class Location {
                 return this.items.get(i);
             }
         }
+        System.out.println("L'item "+itemWanted+" n'est pas present dans ma location.(Ou alors n'est tout simplement pas un item)");
         return null;
     }
-
+    	//PROBLEME SI L UTILISATEUR PREND LE NOM DES LIEUX POUR UN ITEM
 
 
     //***********************SETTEUR ****************
@@ -102,6 +104,7 @@ public class Location {
     //Ajout de commandes
     public void ajoutCommands(Commands cmd) {
         this.commands.add(cmd);
+
     }
 
     public void suppCommands(Commands cmd) {
@@ -167,15 +170,50 @@ public class Location {
 
         for (int i = 0; i < this.commands.size(); i++) {
 
-            if ((this.commands.get(i).cmdName.equals(commandUse))) {
+            if ((this.commands.get(i).cmdName.equals(commandUse))) {	
                 return true;
             }
         }
+        System.out.println("Commande pas presente dans"+this.nameLoc);
         return false;
     }
+    
 
-/*
-    public boolean getGoToIsOk() {
+    public void lookLocation() {
+        System.out.println("Location: " + this.nameLoc);
 
+        //Afficher les portes (next)
+        System.out.println("Doors:");
+        for (Door door : this.next) {
+            System.out.println(" - " + door.getNameDoor());
+        }
+
+        /*/Afficher les commandes (commands)
+        System.out.println("Commands:");
+        for (Commands command : this.commands) {
+            System.out.println(" - " + command.cmdName);
+        }*/
+
+        //afficher les personnages (characters)
+        System.out.println("Characters:");
+        for (Character character : this.characters) {
+            System.out.println(" - " + character.getName());
+        }
+
+        //Afficher les objets (items)
+        System.out.println("Items:");
+        for (Items item : this.items) {
+            System.out.println(" - " + item.getName());
+        }
+    }
+    
+    
+    /*//a supppp
+    public void isCmdpresent(Commands cmdVoulu) {
+    	for (int i = 0;i<this.commands.size();i++) {
+    		if (this.commands.get(i).getNameCmd().equals(cmdVoulu.getNameCmd()))
+    				System.out.println(this.commands.get(i));
+    	}
+    	
     }*/
 }
