@@ -1,4 +1,6 @@
 package Game;
 
-public class HiddenDoor extends Door {
+public class HiddenDoor extends Door
+{
+
 }

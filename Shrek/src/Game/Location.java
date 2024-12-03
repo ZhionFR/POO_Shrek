@@ -2,7 +2,8 @@ package Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Location {
+public class Location
+{
 
     private String nameLoc;
     private List<Door> next;
@@ -10,7 +11,8 @@ public class Location {
     private List<Character> characters;
     private List<Items> items;
 
-    public Location(String name) {
+    public Location(String name)
+    {
         this.nameLoc = name;
         this.next = new ArrayList<>();
         this.commands = new ArrayList<>();
@@ -19,21 +21,18 @@ public class Location {
 
     }
 
-    //***************************GETTEUR**********************************
-
-
     //Renvoi le lieu voulus si la localisation appelé a une porte menant sur se lieux.
-    public Location getLocationDoor(String placeWanted) {
+    public Location getLocationDoor(String placeWanted)
+    {
 
-        for (int i = 0; i < this.next.size(); i++) {
+        for (int i = 0; i < this.next.size(); i++)
+        {
 
             if (this.next.get(i).getLocationB().getNameLoc().equals(placeWanted)) {
-
                 return this.next.get(i).getLocationB();
-
-            } else if (this.next.get(i).getLocationA().getNameLoc().equals(placeWanted))
-
+            } else if (this.next.get(i).getLocationA().getNameLoc().equals(placeWanted)) {
                 return this.next.get(i).getLocationA();
+            }
         }
         //ATTENTION : que revoyer si lieu pas present a travers porte.
         return null;
@@ -44,27 +43,30 @@ public class Location {
     //retourne la porte fermé menant au lieu voulus.
     //ATTENTION NE FONCTIONNE QUE POUR LES PORTES FERMéES sans accées direct
     //On renvoit une porte  que pour lock !!!!
-    public LockDoor getDoorOfLocation(String placeWanted){
-        for (int i = 0; i < this.next.size(); i++){
-            if (this.next.get(i).getLocationB().getNameLoc().equals(placeWanted)){
+    public LockDoor getDoorOfLocation(String placeWanted)
+    {
+        for (int i = 0; i < this.next.size(); i++)
+        {
+            if (this.next.get(i).getLocationB().getNameLoc().equals(placeWanted))
+            {
                 return (LockDoor) this.next.get(i);
             }
         }
         return null;
     }
 
-
-
-    public String getNameLoc() {
-
+    public String getNameLoc()
+    {
         return this.nameLoc;
     }
 
     //Renvoi le sac present dans le lieu
     public Bags getBags() {
-        for (int i = 0; i < this.items.size(); i++) {
+        for (int i = 0; i < this.items.size(); i++)
+        {
             // Vérifie si l'élément est une instance de Bags
-            if (this.items.get(i) instanceof Bags) {
+            if (this.items.get(i) instanceof Bags)
+            {
                 System.out.println("Sac renvoyé par le lieu.");
                 return (Bags) this.items.get(i); // Cast sûr après vérification
             }
@@ -75,9 +77,12 @@ public class Location {
 
 
     //Retourner l'item voulus
-    public Items getItems(String itemWanted) {
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).getName().equals(itemWanted)) {
+    public Items getItems(String itemWanted)
+    {
+        for (int i = 0; i < this.items.size(); i++)
+        {
+            if (this.items.get(i).getName().equals(itemWanted))
+            {
                 return this.items.get(i);
             }
         }
@@ -87,41 +92,47 @@ public class Location {
     	//PROBLEME SI L UTILISATEUR PREND LE NOM DES LIEUX POUR UN ITEM
 
 
-    //***********************SETTEUR ****************
-
     //Ajout lors de l'initialisation surtout.
     //Ajout d'un caractere
-    public void ajouterCharacter(Character ch) {
+    public void ajouterCharacter(Character ch)
+    {
         this.characters.add(ch);
     }
 
 
     //Ajout d'une porte dans ma localisation
-    public void ajouterDoor(Door door) {
+    public void ajouterDoor(Door door)
+    {
         this.next.add(door);
     }
 
     //Ajout de commandes
-    public void ajoutCommands(Commands cmd) {
+    public void ajoutCommands(Commands cmd)
+    {
         this.commands.add(cmd);
 
     }
 
-    public void suppCommands(Commands cmd) {
+    public void suppCommands(Commands cmd)
+    {
         this.commands.remove(cmd);
     }
 
     //Peut etre ajout compagnon ????!!!!!!
 
 
-    public void ajoutItems(Items item) {
+    public void ajoutItems(Items item)
+    {
         this.items.add(item);
     }
 
     //Appele lorsque mon hero prends un items dans le lieu
-    public void suppItems(String item) {
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).getName().equals(item)) {
+    public void suppItems(String item)
+    {
+        for (int i = 0; i < this.items.size(); i++)
+        {
+            if (this.items.get(i).getName().equals(item))
+            {
                 this.items.remove(i);
             }
         }
@@ -144,19 +155,26 @@ public class Location {
         return false;
     }
     */
-    public boolean hasDoorGoTo(String door) {
-        for (Door d : this.next) {
+    public boolean hasDoorGoTo(String door)
+    {
+        for (Door d : this.next)
+        {
             // Vérifie si la porte mène au lieu voulu
             boolean leadsToDesiredLocation = d.getLocationA().getNameLoc().equals(door) || d.getLocationB().getNameLoc().equals(door);
 
-            if (leadsToDesiredLocation) {
+            if (leadsToDesiredLocation)
+            {
                 // Si la porte est une LockDoor, vérifier si elle est traversable
-                if (d instanceof LockDoor) {
+                if (d instanceof LockDoor)
+                {
                     LockDoor lockDoor = (LockDoor) d; // Cast en LockDoor
-                    if (lockDoor.getCanCross()) {
+                    if (lockDoor.getCanCross())
+                    {
                         return true; // La porte mène au lieu voulu et est traversable
                     }
-                } else {
+                }
+                else
+                {
                     return true; // La porte normale mène au lieu voulu
                 }
             }
@@ -166,11 +184,14 @@ public class Location {
 
 
     //Verifie que les deux commandes peuvent interagir (sont presentent) dans le lieux.
-    public boolean isCommandsPresent(String commandUse) {
+    public boolean isCommandsPresent(String commandUse)
+    {
 
-        for (int i = 0; i < this.commands.size(); i++) {
+        for (int i = 0; i < this.commands.size(); i++)
+        {
 
-            if ((this.commands.get(i).cmdName.equals(commandUse))) {	
+            if ((this.commands.get(i).cmdName.equals(commandUse)))
+            {
                 return true;
             }
         }
@@ -179,12 +200,14 @@ public class Location {
     }
     
 
-    public void lookLocation() {
+    public void lookLocation()
+    {
         System.out.println("Location: " + this.nameLoc);
 
         //Afficher les portes (next)
         System.out.println("Doors:");
-        for (Door door : this.next) {
+        for (Door door : this.next)
+        {
             System.out.println(" - " + door.getNameDoor());
         }
 
@@ -196,13 +219,15 @@ public class Location {
 
         //afficher les personnages (characters)
         System.out.println("Characters:");
-        for (Character character : this.characters) {
+        for (Character character : this.characters)
+        {
             System.out.println(" - " + character.getName());
         }
 
         //Afficher les objets (items)
         System.out.println("Items:");
-        for (Items item : this.items) {
+        for (Items item : this.items)
+        {
             System.out.println(" - " + item.getName());
         }
     }

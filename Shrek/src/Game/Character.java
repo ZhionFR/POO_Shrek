@@ -1,6 +1,7 @@
 package Game;
 
-public class Character {
+public class Character
+{
 
     private final String name;
     private int maxHealth;
@@ -10,7 +11,8 @@ public class Character {
     private int accuracy;
     private int attackSpeed;
 
-    public Character(String name, int maxHealth, int strength) {
+    public Character(String name, int maxHealth, int strength)
+    {
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = 350; //Permet d'atteindre la maxHealth en mangeant le repas
@@ -22,73 +24,88 @@ public class Character {
 
     //*******************GETTEUR*******************************
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public int getMaxHealth() {
+    public int getMaxHealth()
+    {
         return maxHealth;
     }
 
-    public int getHealth() {
+    public int getHealth()
+    {
         return health;
     }
 
-    public int getArmor() {
+    public int getArmor()
+    {
         return armor;
     }
 
-    public int getStrength() {
+    public int getStrength()
+    {
         return strength;
     }
 
-    public int getAccuracy() {
+    public int getAccuracy()
+    {
         return accuracy;
     }
 
-    public int getAttackSpeed() {
+    public int getAttackSpeed()
+    {
         return attackSpeed;
     }
 
     //******************SETTEUR*****************************
-    public void addMaxHealth(int max) {
+    public void addMaxHealth(int max)
+    {
         this.maxHealth += max;
     }
 
-    public void addHealth(int max) {
+    public void addHealth(int max)
+    {
 
-        if (this.health < this.maxHealth) {
+        if (this.health < this.maxHealth)
+        {
 
             this.health += max;
-            if (this.health > this.maxHealth) {
+            if (this.health > this.maxHealth)
+            {
                 this.health = this.maxHealth;
             }
             System.out.println("Votre health actuelle est : " + this.health);
-
-            
-        }else {
+        }
+        else
+        {
             System.out.println("Votre sante est deja au max ");
-
         }
 
     }
 
-    public void addArmor(int max) {
+    public void addArmor(int max)
+    {
         this.armor += max;
     }
 
-    public void addStrength(int max) {
+    public void addStrength(int max)
+    {
         this.strength += max;
     }
 
     //Probleme on peut avoir une augmentation de 105, 120 !!!!
-    public void addAccuracy(int max) {
+    public void addAccuracy(int max)
+    {
 
-        if (this.accuracy < 100) {
+        if (this.accuracy < 100)
+        {
 
             this.accuracy += max;
 
-            if (this.accuracy > 100) {
+            if (this.accuracy > 100)
+            {
                 this.accuracy = 100;
             }
             System.out.println("Votre précision actuelle est : " + this.accuracy);
@@ -99,18 +116,21 @@ public class Character {
         }
     }
 
-    public void addAttackSpeed(int max) {
+    public void addAttackSpeed(int max)
+    {
         this.attackSpeed += max;
     }
 
-    public void attack(Character target) {
+    public void attack(Character target)
+    {
         target.health -= this.strength - target.armor;
         if (target.health <= 0) {
             target.isDead();
         }
     }
 
-    public void isDead() {
+    public void isDead()
+    {
         // TODO
     }
 

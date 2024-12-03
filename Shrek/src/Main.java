@@ -4,27 +4,35 @@ import java.util.concurrent.locks.Lock;
 import Game.*;
 
 
-public class Main {
+public class Main
+{
 
 
-    public static void goFonction(Hero shrek,String lieu2){
+    public static void goFonction(Hero shrek,String lieu2)
+    {
 
-    	if (!shrek.getCurrentLocation().getNameLoc().equals(lieu2)) {
+    	if (!shrek.getCurrentLocation().getNameLoc().equals(lieu2))
+        {
 
             //Verifie porte normal et locked aussi
-            //  if (shrek.getCurrentLocation().hasDoorGoTo(lieu2)) {
-            if (shrek.getCurrentLocation().hasDoorGoTo(lieu2)) {
+            //  if (shrek.getCurrentLocation().hasDoorGoTo(lieu2))
+            //  {
+            if (shrek.getCurrentLocation().hasDoorGoTo(lieu2))
+            {
                 System.out.println("Il existe bien une porte menant au lieu.");
 
                 //Je chope ma location du lieu grace a la porte qui y va.
                 shrek.changeCurrentLocation(shrek.getCurrentLocation().getLocationDoor(lieu2));
                 System.out.println("Je suis a : " + shrek.getCurrentLocation().getNameLoc());
 
-            } else {
-
+            }
+            else
+            {
                 System.out.println("Tu ne peux pas passer OH non !!!");
             }
-        }else {
+        }
+        else
+        {
             System.out.println("Vous etes deja dans "+lieu2+" !!!!");
         }
     }
@@ -32,16 +40,17 @@ public class Main {
 
 
     //Prend tout  objet dans le sac
-    public static void takeFonction(Hero shrek, String cmd2){
-
-        if (cmd2.equals("BAG")) {
-           
-        	if (shrek.hasBag()) { //Il a le bag
-
+    public static void takeFonction(Hero shrek, String cmd2)
+    {
+        if (cmd2.equals("BAG"))
+        {
+        	if (shrek.hasBag())
+            { //Il a le bag
             	System.out.println("J'ai deja le sac !!!");
                 //Do nothing
-
-            }else {
+            }
+            else
+            {
 
                 shrek.changeBag(); //Change l ebool de possion de sac.
 
@@ -53,11 +62,14 @@ public class Main {
                 
                 System.out.println("J'ai pris le sac !!!");
             }
-        }else {
+        }
+        else
+        {
 
             //ATTENTION IL FAUDRAI QUE JE CHECK SI J AI DEJZ PRIS OU PAS L'ITEMS
             //Il a bien un sac avant de mettre un objet
-            if ( shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getPortable()  ) {//Si items pas present dans le sac  et que se dernier est portable
+            if ( shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getPortable()  )
+            {//Si items pas present dans le sac  et que se dernier est portable
 
                 //Retourner l'items des souris de la location dans le sac et le supprimer de la location.
                 shrek.addItemInBag(shrek.getCurrentLocation().getItems(cmd2));
@@ -66,23 +78,28 @@ public class Main {
                 shrek.getCurrentLocation().suppItems(cmd2);
                 System.out.println("J'ai pris l'objet : "+cmd2);
 
-            }else {
+            }
+            else
+            {
                 System.out.println("Tu as deja l'item/alors il n'est pas encore portabl/Tu n'as pas de sac");
             }
         }
     }
 
     //Poser tout objet contenue dans le sac.
-    public static void downFonction(Hero shrek,String cmd2){
-
-        if (cmd2.equals("BAG")) {
-
-            if (!shrek.hasBag()) {//N'a pas le sac !!!!
+    public static void downFonction(Hero shrek,String cmd2)
+    {
+        if (cmd2.equals("BAG"))
+        {
+            if (!shrek.hasBag())
+            {//N'a pas le sac !!!!
 
                 System.out.println("J'ai pas le sac !!!");
                 //Do nothing
 
-            }else {
+            }
+            else
+            {
 
                 shrek.changeBag();
 
@@ -93,9 +110,12 @@ public class Main {
                 shrek.retirerBag();
                 System.out.println("J'ai posé mon sac !!");
             }
-        }else {
+        }
+        else
+        {
 
-            if (shrek.getCurrentBag().isItemsInBag(cmd2)) {//Si items present dans le sac
+            if (shrek.getCurrentBag().isItemsInBag(cmd2))
+            {//Si items present dans le sac
 
                 //Ajouter l'item renvoyer par le sac dans le lieu
 
@@ -108,51 +128,45 @@ public class Main {
         }
     }
 
-    
-
-    public static void useFonction(Hero shrek,String cmd2){
-
-
-        if (cmd2.equals("BED")){
+    public static void useFonction(Hero shrek,String cmd2)
+    {
+        if (cmd2.equals("BED"))
+        {
             shrek.addAccuracy(5);
             //Afficher le texte de telle numero
             //afficherText(2); //C'est bien dormir
-        }else if(cmd2.equals("WC")){
-
+        }else if(cmd2.equals("WC"))
+        {
             //EASTER egg des toilettes
             //affichertext(x);
         	System.out.println("Somebody.....");
         	}else 
 
         //Peut import l'item rentré s'il est dans le sac.
-        if (shrek.getCurrentBag().isItemsInBag(cmd2)){
-
-
+        if (shrek.getCurrentBag().isItemsInBag(cmd2))
+        {
             //utilisatiion de se dernier.
             shrek.useItem(shrek.getCurrentBag().getItem(cmd2));
-
             //Supprimer l'item du sac de shrek
             shrek.getCurrentBag().suppItemInBag(cmd2);
-
-
-        } else {
-
+        }
+        else
+        {
                 System.out.println("Tu ne possèdes pas l'item dans le sac");
-
         }
     }
 
 
-    public static void speakFonction(Hero shrek,String cmd2){
-
-        if (cmd2.equals("DONKEY")){ //surement utiliser seulement au debut.
+    public static void speakFonction(Hero shrek,String cmd2)
+    {
+        if (cmd2.equals("DONKEY"))
+        { //surement utiliser seulement au debut.
             //Faire parler l'anner
             //afficher texte ane jsp quoi
         }
-
         // ATTENTION / IL NE PEUT PAS PARTIR DU MARAIS SI IL N A PAS PARLER A LA FOULE
-        if (cmd2.equals("STORYTELLER")){
-
+        if (cmd2.equals("STORYTELLER"))
+        {
             //FAire parler le conteur
             //afficher texte du story teller
             //ATTENTION CELA MET SUR TRUE L ACCE EN DEHORS DU MARAIS
@@ -160,25 +174,19 @@ public class Main {
             //shrek.getCurrentLocation().getLocationDoor("FOREST").;
                shrek.getCurrentLocation().getDoorOfLocation("FOREST").setCanCross(true);
                System.out.println("je peux aller a forest ? : "+shrek.getCurrentLocation().getDoorOfLocation("FOREST").getCanCross());
-
         }
-
     }
 
-    public static void lookFonction(Hero shrek){
-        
+    public static void lookFonction(Hero shrek)
+    {
     	//Description du lieu.
         shrek.getCurrentLocation().lookLocation();
         //OU alors faire une liste deja toute prete !!!!!!
-    
        //ON devrait plutot partir sur item et description du lieu par texte. !!!!!!!!
-        
-        
     }
 
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args)
+    {
         //INitialisation lieux
 
         Location maison = new Location("MAISON");
@@ -297,10 +305,9 @@ public class Main {
         forest.ajoutItems(pussinboots);
 
 
-        
         int fin = 1;
-        while (fin>0) {
-
+        while (fin>0)
+        {
         	//test changement de location. System.out.println(shrek.getCurrentLocation().getNameLoc());
             
         	String arg1; //exemple : 'GO'
@@ -317,53 +324,57 @@ public class Main {
             arg1 = arg[0];
             arg2 = null;
 
-            if (arg.length == 1){
+            if (arg.length == 1)
+            {
                 //Ici je peux avoir seulement une commande rentré et pas en attendre deux
-                if (arg1.equals("QUIT")){
+                if (arg1.equals("QUIT"))
+                {
                     System.out.println("Tu as decider d'arreter le jeux !!!!Ciao");
                     break;
                 }
 
-                if (arg1.equals("LOOK")) {
+                if (arg1.equals("LOOK"))
+                {
                     lookFonction(shrek);
                 }
-            }else {
+            }
+            else
+            {
             	arg2=arg[1];
                 //les commandes rentré sont elle presente dans le lieu ou mon personnage se trouve. ou dans le sac
-                if (shrek.getCurrentLocation().isCommandsPresent(arg1) &&(shrek.getCurrentLocation().isCommandsPresent(arg2) || shrek.getCurrentBag().isItemsInBag(arg2) )) {
-
+                if (shrek.getCurrentLocation().isCommandsPresent(arg1) &&(shrek.getCurrentLocation().isCommandsPresent(arg2) || shrek.getCurrentBag().isItemsInBag(arg2) ))
+                {
                     shrek.getCurrentLocation().hasDoorGoTo("MARAIS");
-
                     //Utilisateur a tapé GO et une des portes mene a la localisation voulu.
-                    if (arg1.equals("GO")) {
+                    if (arg1.equals("GO"))
+                    {
                         goFonction(shrek, arg2);
                     }
-
                     //Prend take et fait induir l'action sur le monde de shrek (location/items..)
-                    if (arg1.equals("TAKE")) {
+                    if (arg1.equals("TAKE"))
+                    {
                         takeFonction(shrek, arg2);
                     }
 
-
-                    if (arg1.equals("DOWN")) {
+                    if (arg1.equals("DOWN"))
+                    {
                         downFonction(shrek, arg2);
                     }
-
                     //Augmenter la vie du perso qui n'aura pas ete mis au max a son initislisation.
                     //Commande encore presente dans la location du hero
-                    if (arg1.equals("USE")) {
-
+                    if (arg1.equals("USE"))
+                    {
                         useFonction(shrek, arg2);
                     }
 
-                    if (arg1.equals("SPEAK")) {
-
+                    if (arg1.equals("SPEAK"))
+                    {
                         //Parle a un perso
                         speakFonction(shrek, arg2);
                     }
-
-
-                } else {
+                }
+                else
+                {
                     System.out.println("Commande incompatible avec le milieu.");
                 }
             }

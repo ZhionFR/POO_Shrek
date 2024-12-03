@@ -4,20 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Commands {
-
+public class Commands
+{
     String cmdName;
 
-
-    //***********************CONSTRUCTOR************************************
-    public Commands(String cmd) {
+    public Commands(String cmd)
+    {
         this.cmdName = cmd;
     }
-    
-    
-    
-    //***********Getteur****************
-    public String getNameCmd() {
+
+    public String getNameCmd()
+    {
     	return cmdName;
     }
 }

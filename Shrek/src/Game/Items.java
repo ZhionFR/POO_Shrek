@@ -1,6 +1,7 @@
 package Game;
 
-public class Items {
+public class Items
+{
 
     private final String name;
     private final double volume;
@@ -15,7 +16,8 @@ public class Items {
     private final int bonusAttackSpeed;
 
     public Items(String name, boolean portable, double volume, int bonusMaxHealth, int bonusHealth,
-                 int bonusArmor, int bonusStrength, int bonusAccuracy, int bonusAttackSpeed) {
+                 int bonusArmor, int bonusStrength, int bonusAccuracy, int bonusAttackSpeed)
+    {
         this.name = name;
         this.volume = volume;
         this.portable = portable;
@@ -28,47 +30,48 @@ public class Items {
         this.bonusAttackSpeed = bonusAttackSpeed;
     }
 
-
-    //***********************************GETTEUR****************************
-
-    public double getVolume() {
+    public double getVolume()
+    {
         return volume;
     }
-
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
-
-    public int getBonusMaxHealth() {
+    public int getBonusMaxHealth()
+    {
         return bonusMaxHealth;
     }
-
-    public int getBonusHealth() {
+    public int getBonusHealth()
+    {
         return bonusHealth;
     }
-
-    public int getBonusArmor() {
+    public int getBonusArmor()
+    {
         return bonusArmor;
     }
-
-    public int getBonusStrength() {
+    public int getBonusStrength()
+    {
         return bonusStrength;
     }
-
-    public int getBonusAccuracy() {
+    public int getBonusAccuracy()
+    {
         return bonusAccuracy;
     }
-
-    public int getBonusAttackSpeed() {
+    public int getBonusAttackSpeed()
+    {
         return bonusAttackSpeed;
     }
 
     //Savoir si un item peut etre porte ou non (par exemple chat poté)
-    public boolean getPortable() {
+    public boolean getPortable()
+    {
         if (this.portable){
             System.out.println("L'item"+this.name+" est portable !!!");
             return portable;
-        }else {
+        }
+        else
+        {
             System.out.println("Ton items n'est pas/pas encore portable");
             return false;
         }
@@ -77,21 +80,22 @@ public class Items {
 
     //****************************SETTEUR*****************************************
 
-    public void printName() {
+    public void printName()
+    {
         System.out.println(this.name);
     }
-
-    public boolean getequipped() {
+    public boolean getequipped()
+    {
         return isEquipped;
     }
-
-    public void setequipped(boolean equipped) {
+    public void setequipped(boolean equipped)
+    {
         if (volume == -1) {
            isEquipped = equipped;
         }
     }
-
-    public void equip(Hero shrek) {
+    public void equip(Hero shrek)
+    {
         if (this.portable) {
             isEquipped = true;
             shrek.addMaxHealth(bonusMaxHealth);
@@ -102,8 +106,10 @@ public class Items {
         }
     }
 
-    public void unequip(Hero shrek) {
-        if (this.isEquipped) {
+    public void unequip(Hero shrek)
+    {
+        if (this.isEquipped)
+        {
             isEquipped = false;
             shrek.addMaxHealth(-bonusMaxHealth);
             shrek.addArmor(-bonusArmor);
@@ -113,8 +119,10 @@ public class Items {
         }
     }
 
-    public void eat(Hero shrek) {
-        if (bonusHealth>0) {
+    public void eat(Hero shrek)
+    {
+        if (bonusHealth>0)
+        {
             shrek.addHealth(bonusHealth);
         }
     }
