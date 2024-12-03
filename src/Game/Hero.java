@@ -34,7 +34,7 @@ public class Hero extends Character
         }
         else
         {
-            System.out.println("Hero does not have a bag");
+            System.out.println("Game.Hero does not have a bag");
             return false;
         }
     }
@@ -50,10 +50,10 @@ public class Hero extends Character
 
     public void changeCurrentLocation(Location B)
     {
-            this.currentLocation = B;
+        this.currentLocation = B;
     }
     /*
-    public void changeCurrentLocationLock(Location B){
+    public void changeCurrentLocationLock(Game.Location B){
 
         //La porte menant a B peut etre franchis !!!
         if (this.currentLocation.getDoorOfLocation(B.getNameLoc()).getCanCross()){
@@ -65,20 +65,20 @@ public class Hero extends Character
         }
 
     }*/
-    
+
     //change la possession ou non du sac sur mon hero
     public void changeBag()
     {
-    	if (this.bag)
+        if (this.bag)
         {
-    		this.bag = false;
-    		System.out.println("Sac doit etre posé.");
-    	}
+            this.bag = false;
+            System.out.println("Sac doit etre posé.");
+        }
         else
         {
-    		this.bag = true;
-    		System.out.println("Sac doit etre pris.");
-    	}
+            this.bag = true;
+            System.out.println("Sac doit etre pris.");
+        }
     }
 
     //Ajout du sac a mon hero
@@ -114,7 +114,7 @@ public class Hero extends Character
     {
 
         //Faire impacter les caracteristiques de l'item a mon perso.
-       // item.impactHero(this);  //Qui prend shreck
+        // item.impactHero(this);  //Qui prend shreck
         //Chaque objet etant differents ils impacterons eux meme le hero pour eviter de faire tout les cas possible
 
         if (item.getName().equals("MEAL"))

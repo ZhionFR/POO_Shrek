@@ -93,7 +93,7 @@ public class Character
         }
         else
         {
-        	System.out.println("Vous vous etes assez reposés !!!");
+            System.out.println("Vous vous etes assez reposés !!!");
         }
     }
     public void addAttackSpeed(int max)
@@ -108,7 +108,7 @@ public class Character
             target.isDead();
         }
     }
-    
+
     public void isDead()
     {
         // TODO

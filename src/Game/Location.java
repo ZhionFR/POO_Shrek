@@ -1,4 +1,5 @@
 package Game;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class Location
     private String nameLoc;
     private List<Door> next;
     private List<Commands> commands;
-    private List<Character> characters;
+    private List<Game.Character> characters;
     private List<Items> items;
 
     public Location(String name)
@@ -64,7 +65,7 @@ public class Location
     public Bags getBags() {
         for (int i = 0; i < this.items.size(); i++)
         {
-            // Vérifie si l'élément est une instance de Bags
+            // Vérifie si l'élément est une instance de Game.Bags
             if (this.items.get(i) instanceof Bags)
             {
                 System.out.println("Sac renvoyé par le lieu.");
@@ -89,12 +90,12 @@ public class Location
         System.out.println("L'item "+itemWanted+" n'est pas present dans ma location.(Ou alors n'est tout simplement pas un item)");
         return null;
     }
-    	//PROBLEME SI L UTILISATEUR PREND LE NOM DES LIEUX POUR UN ITEM
+    //PROBLEME SI L UTILISATEUR PREND LE NOM DES LIEUX POUR UN ITEM
 
 
     //Ajout lors de l'initialisation surtout.
     //Ajout d'un caractere
-    public void ajouterCharacter(Character ch)
+    public void ajouterCharacter(Game.Character ch)
     {
         this.characters.add(ch);
     }
@@ -164,10 +165,10 @@ public class Location
 
             if (leadsToDesiredLocation)
             {
-                // Si la porte est une LockDoor, vérifier si elle est traversable
+                // Si la porte est une Game.LockDoor, vérifier si elle est traversable
                 if (d instanceof LockDoor)
                 {
-                    LockDoor lockDoor = (LockDoor) d; // Cast en LockDoor
+                    LockDoor lockDoor = (LockDoor) d; // Cast en Game.LockDoor
                     if (lockDoor.getCanCross())
                     {
                         return true; // La porte mène au lieu voulu et est traversable
@@ -198,11 +199,11 @@ public class Location
         System.out.println("Commande pas presente dans"+this.nameLoc);
         return false;
     }
-    
+
 
     public void lookLocation()
     {
-        System.out.println("Location: " + this.nameLoc);
+        System.out.println("Game.Location: " + this.nameLoc);
 
         //Afficher les portes (next)
         System.out.println("Doors:");
@@ -212,8 +213,8 @@ public class Location
         }
 
         /*/Afficher les commandes (commands)
-        System.out.println("Commands:");
-        for (Commands command : this.commands) {
+        System.out.println("Game.Commands:");
+        for (Game.Commands command : this.commands) {
             System.out.println(" - " + command.cmdName);
         }*/
 
@@ -225,20 +226,20 @@ public class Location
         }
 
         //Afficher les objets (items)
-        System.out.println("Items:");
+        System.out.println("Game.Items:");
         for (Items item : this.items)
         {
             System.out.println(" - " + item.getName());
         }
     }
-    
-    
+
+
     /*//a supppp
-    public void isCmdpresent(Commands cmdVoulu) {
+    public void isCmdpresent(Game.Commands cmdVoulu) {
     	for (int i = 0;i<this.commands.size();i++) {
     		if (this.commands.get(i).getNameCmd().equals(cmdVoulu.getNameCmd()))
     				System.out.println(this.commands.get(i));
     	}
-    	
+
     }*/
 }

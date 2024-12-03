@@ -91,7 +91,7 @@ public class Items
     public void setequipped(boolean equipped)
     {
         if (volume == -1) {
-           isEquipped = equipped;
+            isEquipped = equipped;
         }
     }
     public void equip(Hero shrek)
@@ -130,7 +130,7 @@ public class Items
 
     /* AUTANT LA LAISSER DANS LE MAIN
     //Valable pour tout les items
-    public void impactHero(Hero shrek) {
+    public void impactHero(Game.Hero shrek) {
 
         if (this.name.equals("MEAL")){
 

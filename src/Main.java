@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.concurrent.locks.Lock;
 
 import Game.*;
 
@@ -11,7 +10,7 @@ public class Main
     public static void goFonction(Hero shrek,String lieu2)
     {
 
-    	if (!shrek.getCurrentLocation().getNameLoc().equals(lieu2))
+        if (!shrek.getCurrentLocation().getNameLoc().equals(lieu2))
         {
 
             //Verifie porte normal et locked aussi
@@ -44,9 +43,9 @@ public class Main
     {
         if (cmd2.equals("BAG"))
         {
-        	if (shrek.hasBag())
+            if (shrek.hasBag())
             { //Il a le bag
-            	System.out.println("J'ai deja le sac !!!");
+                System.out.println("J'ai deja le sac !!!");
                 //Do nothing
             }
             else
@@ -59,7 +58,7 @@ public class Main
 
                 //Le sac se voit etre supprimé du lieu
                 shrek.getCurrentLocation().suppItems(shrek.getCurrentBag().getName());
-                
+
                 System.out.println("J'ai pris le sac !!!");
             }
         }
@@ -122,7 +121,7 @@ public class Main
                 shrek.getCurrentLocation().ajoutItems(shrek.getCurrentBag().getItem(cmd2));
 
                 //Suppression dans mon sac de l'item
-                shrek.getCurrentBag().suppItemInBag(cmd2); 
+                shrek.getCurrentBag().suppItemInBag(cmd2);
                 System.out.println("J'ai posé  dans le lieu l'objet : "+cmd2);
             }
         }
@@ -139,21 +138,21 @@ public class Main
         {
             //EASTER egg des toilettes
             //affichertext(x);
-        	System.out.println("Somebody.....");
-        	}else 
+            System.out.println("Somebody.....");
+        }else
 
-        //Peut import l'item rentré s'il est dans le sac.
-        if (shrek.getCurrentBag().isItemsInBag(cmd2))
-        {
-            //utilisatiion de se dernier.
-            shrek.useItem(shrek.getCurrentBag().getItem(cmd2));
-            //Supprimer l'item du sac de shrek
-            shrek.getCurrentBag().suppItemInBag(cmd2);
-        }
-        else
-        {
+            //Peut import l'item rentré s'il est dans le sac.
+            if (shrek.getCurrentBag().isItemsInBag(cmd2))
+            {
+                //utilisatiion de se dernier.
+                shrek.useItem(shrek.getCurrentBag().getItem(cmd2));
+                //Supprimer l'item du sac de shrek
+                shrek.getCurrentBag().suppItemInBag(cmd2);
+            }
+            else
+            {
                 System.out.println("Tu ne possèdes pas l'item dans le sac");
-        }
+            }
     }
 
 
@@ -172,17 +171,17 @@ public class Main
             //ATTENTION CELA MET SUR TRUE L ACCE EN DEHORS DU MARAIS
             //On oblige ainsi de connaitre l'histoire en allant voir le story teller
             //shrek.getCurrentLocation().getLocationDoor("FOREST").;
-               shrek.getCurrentLocation().getDoorOfLocation("FOREST").setCanCross(true);
-               System.out.println("je peux aller a forest ? : "+shrek.getCurrentLocation().getDoorOfLocation("FOREST").getCanCross());
+            shrek.getCurrentLocation().getDoorOfLocation("FOREST").setCanCross(true);
+            System.out.println("je peux aller a forest ? : "+shrek.getCurrentLocation().getDoorOfLocation("FOREST").getCanCross());
         }
     }
 
     public static void lookFonction(Hero shrek)
     {
-    	//Description du lieu.
+        //Description du lieu.
         shrek.getCurrentLocation().lookLocation();
         //OU alors faire une liste deja toute prete !!!!!!
-       //ON devrait plutot partir sur item et description du lieu par texte. !!!!!!!!
+        //ON devrait plutot partir sur item et description du lieu par texte. !!!!!!!!
     }
 
     public static void main(String[] args)
@@ -213,7 +212,7 @@ public class Main
         Commands PUSSINBOOTS = new Commands("PUSSINBOOTS");
         Commands MAISON = new Commands("MAISON");
         Commands LOOK = new Commands("LOOK");
-        //Items dans maison
+        //Game.Items dans maison
 
         Bags bag = new Bags(200.0,"BAG");
         Items meal = new Items("MEAL",true,20,0,50,0,0,0,0);
@@ -236,7 +235,7 @@ public class Main
         maison.ajoutItems(meal);
 
 
-        
+
         //Commandes dans marais
         Commands DONKEY = new Commands("DONKEY");
         Commands WC = new Commands("WC");
@@ -268,7 +267,7 @@ public class Main
         //Ajout compagnon
 
         /*
-        Compagnion DONKEY = new Compagnion("Donkey",20,10);
+        Game.Compagnion DONKEY = new Game.Compagnion("Donkey",20,10);
 
         //PROBLEME : devrait ajouter un compagnon car il secend de caractere. ah non
         marais.ajouterCharacter(DONKEY);
@@ -296,7 +295,7 @@ public class Main
         forest.ajoutCommands(DOWN);
         forest.ajoutCommands(USE);
         forest.ajoutCommands(MOUTHBLIND);
-        
+
 
         forest.ajoutCommands(PUSSINBOOTS);
         forest.ajoutCommands(FIGHT);// DANS LE FIGHT IL Y AURA LES DIALOGUES
@@ -308,9 +307,9 @@ public class Main
         int fin = 1;
         while (fin>0)
         {
-        	//test changement de location. System.out.println(shrek.getCurrentLocation().getNameLoc());
-            
-        	String arg1; //exemple : 'GO'
+            //test changement de location. System.out.println(shrek.getCurrentLocation().getNameLoc());
+
+            String arg1; //exemple : 'GO'
             String arg2; //exemple : 'MARAIS'
 
             Scanner sc = new Scanner(System.in);
@@ -319,8 +318,8 @@ public class Main
             String arg[] = str.split(" ");
 
 
-            //Commande --> Dpot devenir la Commands de la forme du dessus.
-            
+            //Commande --> Dpot devenir la Game.Commands de la forme du dessus.
+
             arg1 = arg[0];
             arg2 = null;
 
@@ -340,7 +339,7 @@ public class Main
             }
             else
             {
-            	arg2=arg[1];
+                arg2=arg[1];
                 //les commandes rentré sont elle presente dans le lieu ou mon personnage se trouve. ou dans le sac
                 if (shrek.getCurrentLocation().isCommandsPresent(arg1) &&(shrek.getCurrentLocation().isCommandsPresent(arg2) || shrek.getCurrentBag().isItemsInBag(arg2) ))
                 {

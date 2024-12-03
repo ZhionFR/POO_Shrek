@@ -18,7 +18,7 @@ public class  Door
     {
         return this.nameDoor;
     }
-    
+
 
     // The two access for the door
     public Location getLocationB()

@@ -61,10 +61,10 @@ public class Bags extends Items
         {
             if (items.get(i).getName().equals(item))
             {
-               items.remove(i);
+                items.remove(i);
             }
         }
-    } 
+    }
 
     public boolean isItemsInBag(String item)
     {
@@ -72,7 +72,7 @@ public class Bags extends Items
         {
             if (this.items.get(i).getName().equals(item))
             {
-            	System.out.println("You already have : "+item);
+                System.out.println("You already have : "+item);
                 return true;
             }
         }
