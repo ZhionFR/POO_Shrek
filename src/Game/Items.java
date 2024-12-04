@@ -5,14 +5,15 @@ public class Items
 
     private final String name;
     private final double volume;
-    private final boolean wearable;
+    private boolean wearable;
     private boolean isEquipped;
+    private boolean canBeUse;
 
     private final int bonusMaxHealth;
     private final int bonusHealth; // only if item can heal
     private final int bonusStrength;
 
-    public Items(String name, boolean wearable, double volume, int bonusMaxHealth, int bonusHealth, int bonusStrength)
+    public Items(String name, boolean wearable,boolean canBeUse, double volume, int bonusMaxHealth, int bonusHealth, int bonusStrength)
     {
         this.name = name;
         this.volume = volume;
@@ -21,6 +22,7 @@ public class Items
         this.bonusMaxHealth = bonusMaxHealth;
         this.bonusHealth = bonusHealth;
         this.bonusStrength = bonusStrength;
+        this.canBeUse = canBeUse;
     }
 
     public double getVolume()
@@ -59,6 +61,15 @@ public class Items
 
     }
 
+    //Item peut etre utilisé
+    public boolean canBeUse(){
+        if (this.canBeUse){
+            return this.canBeUse;
+        }
+        System.out.println("Your item cannot be used.");
+        return this.canBeUse;
+    }
+
     public void printName()
     {
         System.out.println(this.name);
@@ -73,6 +84,11 @@ public class Items
             isEquipped = equipped;
         }
     }
+
+    public void setWearable(boolean val){
+        this.wearable = true;
+    }
+
     public void equip(Hero shrek)
     {
         if (this.wearable) {

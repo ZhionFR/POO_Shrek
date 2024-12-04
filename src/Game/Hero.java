@@ -18,7 +18,7 @@ public class Hero extends Character
     // Place the hero in the house early game.
     public Hero(Location loc)
     {
-        super("Shrek", 400, 15, 350); // example base_health and base_strength
+        super("Shrek", 400, 15, 200); // example base_health and base_strength
         boolean bag = false;
 
         this.currentLocation = loc;
@@ -34,7 +34,6 @@ public class Hero extends Character
         }
         else
         {
-            System.out.println("You don't have a bag");
             return false;
         }
     }
@@ -72,12 +71,10 @@ public class Hero extends Character
         if (this.bag)
         {
             this.bag = false;
-            System.out.println("The bag must be dropped.");
         }
         else
         {
             this.bag = true;
-            System.out.println("The bag must be taken.");
         }
     }
 
@@ -86,14 +83,13 @@ public class Hero extends Character
     {
         this.bag = true;
         this.currentBag = currentBag;
-        System.out.println("You have a bag.");
+
     }
     // Remove the bag from the Hero
     public void removeBag()
     {
         this.bag = false;
         this.currentBag = null;
-        System.out.println("You don't have a bag anymore.");
 
     }
 
@@ -120,5 +116,14 @@ public class Hero extends Character
             this.addHealth(item.getBonusHealth());
             this.currentBag.suppItemInBag(item.getName()); // Delete from bag
         }
+
+        if (item.getName().equals("PUSSINBOOTS")){
+
+            //add the strength of pussinboots to shrek
+            this.addStrength(item.getBonusHealth());
+            this.currentBag.suppItemInBag(item.getName());
+
+        }
+
     }
 }

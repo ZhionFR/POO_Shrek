@@ -12,7 +12,7 @@ public class Character
     {
         this.name = name;
         this.maxHealth = maxHealth;
-        this.health = health; // Not set as max because can be load to max with something to eat
+        this.health = health;
         this.strength = strength;
     }
 

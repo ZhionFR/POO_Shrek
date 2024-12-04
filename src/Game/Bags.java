@@ -11,7 +11,7 @@ public class Bags extends Items
 
     public Bags(double Capacity, String name)
     {
-        super(name, true, -1, 0, 0,
+        super(name, true,false ,-1, 0, 0,
                 0);
         this.Capacity = Capacity;
         this.items = new ArrayList<Items>();
@@ -47,7 +47,7 @@ public class Bags extends Items
 
     public void addItemsInBag(Items items)
     {
-        System.out.println("Add the item : "+ items.getName() +" in the backpack.");
+        System.out.println("Add the item : "+ items.getName() +" in the bag.");
         this.items.add(items);
 
     }
@@ -73,7 +73,32 @@ public class Bags extends Items
                 return true;
             }
         }
-        System.out.println("You don't have the item " + item + " in your backpack.");
+        System.out.println("You don't have the item " + item + " in your bag.");
         return false;
     }
+
+    public boolean hasThreeBottleOfMilf(){
+
+        int res = 0;
+        for (int i = 0; i<this.items.size(); i++){
+            if (this.items.get(i).getName().equals("MILK1") || this.items.get(i).getName().equals("MILK2") || this.items.get(i).getName().equals("MILK3"))
+
+                res+=1;
+
+        }
+        if (res == 2){
+            System.out.println("There is one left bottle !!!");
+            return false;
+        }else if (res == 1){
+            System.out.println("There is two left bottle !!!");
+            return false;
+        }else if (res == 0){
+            System.out.println("You need three bottle of milk for PUSSINBOOTS ! ");
+            return false;
+        }
+        return true;
+
+
+    }
+
 }

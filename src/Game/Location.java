@@ -12,8 +12,7 @@ public class Location
     private final List<Game.Character> characters;
     private List<Items> items;
 
-    public Location(String name)
-    {
+    public Location(String name) {
         this.nameLoc = name;
         this.next = new ArrayList<>();
         this.commands = new ArrayList<>();
@@ -65,7 +64,7 @@ public class Location
             // Check if the element is an instance of Bags
             if (this.items.get(i) instanceof Bags)
             {
-                System.out.println("The location give a bag.");
+
                 return (Bags) this.items.get(i); // Obvious cast after verification
             }
         }
@@ -204,11 +203,7 @@ public class Location
             System.out.println(" - " + door.getNameDoor());
         }
 
-        /*/ Display the commands
-        System.out.println("Game.Commands:");
-        for (Game.Commands command : this.commands) {
-            System.out.println(" - " + command.cmdName);
-        }*/
+
 
         // Display the characters
         System.out.println("Characters : ");
@@ -218,10 +213,20 @@ public class Location
         }
 
         // Display the objects
-        System.out.println("Game.Items:");
+        System.out.println("Items :");
         for (Items item : this.items)
         {
             System.out.println(" - " + item.getName());
+        }
+    }
+
+
+    public void help(){
+
+        // Display the commands
+        System.out.println("Game commands possible :");
+        for (Game.Commands command : this.commands) {
+            System.out.println(" - " + command.cmdName);
         }
     }
 }
