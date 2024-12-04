@@ -47,9 +47,7 @@ public class Bags extends Items
 
     public void addItemsInBag(Items items)
     {
-        System.out.println("Add the item : "+ items.getName() +" in the bag.");
         this.items.add(items);
-
     }
 
     public void suppItemInBag(String item)
@@ -69,11 +67,9 @@ public class Bags extends Items
         {
             if (this.items.get(i).getName().equals(item))
             {
-                System.out.println("You already have : "+item);
                 return true;
             }
         }
-        System.out.println("You don't have the item " + item + " in your bag.");
         return false;
     }
 

@@ -50,7 +50,6 @@ public class Items
     public boolean getWearable()
     {
         if (this.wearable){
-            System.out.println("The " + this.name + " is wearable.");
             return wearable;
         }
         else

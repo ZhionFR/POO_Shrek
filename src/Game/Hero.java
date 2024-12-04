@@ -124,6 +124,9 @@ public class Hero extends Character
             this.currentBag.suppItemInBag(item.getName());
 
         }
-
+        if (item.getName().equals("KEY")){
+            //I will be able to go through the tower
+            this.getCurrentLocation().getDoorOfLocation("TOWER").setCanCross(true);
+        }
     }
 }

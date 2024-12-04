@@ -5,6 +5,8 @@ import Game.*;
 public class Main
 {
 
+    static int stockFiona = 0;
+
     public static void initLocation(Location loc){
 
         // Initialize all commands
@@ -31,7 +33,10 @@ public class Main
         Commands CASTLE = new Commands("CASTLE");
         Commands TOWER = new Commands("TOWER");
         Commands SHIELD = new Commands("SHIELD");
-
+        Commands KEY = new Commands("KEY");
+        Commands SIGN = new Commands("SIGN");
+        Commands FIONA  = new Commands("FIONA");
+        Commands LEAVE = new Commands("LEAVE");
 
         // Add basic functions for all the locations
         loc.addCommands(GO);
@@ -39,6 +44,7 @@ public class Main
         loc.addCommands(DOWN);
         loc.addCommands(USE);
         loc.addCommands(LOOK);
+
 
         //Add items who will be dropped everywhere
         loc.addCommands(MEAL);
@@ -48,6 +54,7 @@ public class Main
         loc.addCommands(MILK2);
         loc.addCommands(MILK3);
         loc.addCommands(SHIELD);
+        loc.addCommands(KEY);
 
 
         if (loc.getNameLoc().equals("HOUSE"))
@@ -120,18 +127,25 @@ public class Main
             loc.addCommands(CASTLE);
             loc.addCommands(BRIDGE);
             loc.addCommands(TOWER);
+            loc.addCommands(SIGN);
 
             //creation of items
             Items shield = new Items("SHIELD",true,true,50,0,0,0 );
+            Items key = new Items("KEY",true,true,10,0,0,0);
 
             //Add items
             loc.addItems(shield);
+            loc.addItems(key);
 
         }
         if(loc.getNameLoc().equals("TOWER")){
 
+            loc.addCommands(FIONA);
             loc.addCommands(CASTLE);
             loc.addCommands(TOWER);
+            loc.addCommands(FIONA);
+            loc.addCommands(LEAVE);
+            loc.addCommands(SPEAK);
         }
 
     }
@@ -149,6 +163,27 @@ public class Main
                 //I take the location thanks to the door linked to it.
                 shrek.changeCurrentLocation(shrek.getCurrentLocation().getLocationDoor(lieu2));
                 System.out.println("I'm in : " + shrek.getCurrentLocation().getNameLoc());
+                switch(lieu2)
+                {
+                    case "HOUSE":
+                        displayText(2);
+                        break;
+                    case "SWAMP":
+                        displayText(4);
+                        break;
+                    case "FOREST":
+                        displayText(6);
+                        break;
+                    case "BRIDGE":
+                        displayText(9);
+                        break;
+                    case "CASTLE":
+                        displayText(11);
+                        break;
+                    case "TOWER":
+                        displayText(13);
+                        break;
+                }
             }
             else
             {
@@ -269,8 +304,6 @@ public class Main
     }
 
 
-    //TODO: Commande SIGN LEAVE
-
     public static void speakFonction(Hero shrek,String cmd2)
     {
         // WARNING : We can't leave the swamp if we don't have spoken with the crowd
@@ -305,6 +338,7 @@ public class Main
         }
         if (cmd2.equals("FIONA")){
             displayText(14);
+            stockFiona = 1;
         }
     }
 
@@ -319,6 +353,22 @@ public class Main
     public static void helpFonction(Hero shrek){
 
         shrek.getCurrentLocation().help();
+    }
+
+    public static void signFonction(Hero shrek){
+
+        if (shrek.getCurrentLocation().getNameLoc().equals("CASTLE")){
+            displayText(12);
+        }
+    }
+
+    public static void leaveFonction(Hero shrek){
+
+        if (shrek.getCurrentLocation().getNameLoc().equals("TOWER") && stockFiona == 1)
+        {
+            displayText(15);
+        }
+
     }
 
 
@@ -365,15 +415,16 @@ public class Main
         Location castle = new Location("CASTLE");
         initLocation(castle);
 
-        LockDoor BRIDGE_CASTEL = new LockDoor("BRIDGE_CASTEL",bridge,castle,false);
-        bridge.addDoor(BRIDGE_CASTEL);
+        LockDoor BRIDGE_CASTLE = new LockDoor("BRIDGE_CASTLE",bridge,castle,false);
+        bridge.addDoor(BRIDGE_CASTLE);
 
 
         Location tower = new Location("TOWER");
         initLocation(tower);
 
-        LockDoor CASTLE_TOWER = new Door("CASTLE_TOWER",castle,tower);
+        LockDoor CASTLE_TOWER = new LockDoor("CASTLE_TOWER",castle,tower,false);
         tower.addDoor(CASTLE_TOWER);
+        castle.addDoor(CASTLE_TOWER);
 
 
         int end = 1;
@@ -409,6 +460,13 @@ public class Main
                 }
                 if (arg1.equals("HELP")){
                     helpFonction(shrek);
+                }
+                if (arg1.equals("SIGN")){
+
+                    signFonction(shrek);
+                }
+                if (arg1.equals("LEAVE")){
+                    leaveFonction(shrek);
                 }
 
             }
@@ -486,7 +544,7 @@ public class Main
                 System.out.println("From the edge of the restless crowd stepped a mysterious figure cloaked in a patchwork of old scrolls and faded fabric.");
                 System.out.println("The STORYTELLER, with eyes that seemed to hold a thousand tales, seemed to wait for the crowd to calm down before speaking.");
                 break;
-            case 5: //done
+            case 5:
                 // STORYTELLER's speech
                 System.out.println("Their voice, rich and rhythmic, silenced the swamp as they addressed Shrek.");
                 System.out.println("\"Shrek, the time has come. Laure de Farkual summons you,\" ");
@@ -503,13 +561,13 @@ public class Main
                 System.out.println("With a swift flick of his tail, he landed gracefully on a nearby rock, striking a pose.");
                 System.out.println("In the distance, a stone BRIDGE arched gracefully over a bubbling stream, leading toward a looming ' that peeked through the trees, its tall towers barely visible above the treetops.");
                 break;
-            case 7: //done
+            case 7:
                 // PUSSINBOOTS' speech if we don't have 3 bottles of milk
                 System.out.println("¿Purr...Mrrr... Meow? ¡Hisssss... Mrrrrroooww! Prrrttt... Meow, purr. ¡Mmmmm..... Hiss! Purr ... meow.");
                 System.out.println("He looked at Shrek, giving a angry mrrrow as if to say,");
                 System.out.println("\"I'm a little trusty, maybe if you have some bottles of milk it'll be better.");
                 break;
-            case 8: //done
+            case 8:
                 // PUSSINBOOTS' speech if we have 3 bottles of milk
                 System.out.println("He looked at Shrek, then back toward the path ahead, with a ");
                 System.out.println("Meow meooow~ meow =^-^=, as if to say"); // (Fyzoriel's idea)
@@ -523,7 +581,7 @@ public class Main
                 System.out.println("The knights clinked their armor, shifting nervously. Shrek stood unfazed, glaring back with a defiant growl, his fists ready.");
                 System.out.println("The sound of the pepper mill turning echoed in the silence of the bridge, the tension rising with each click.");
                 break;
-            case 10://done
+            case 10:
                 // LAUREDEFARKUAL's speech
                 System.out.println("Her eyes glinted with a mix of arrogance and cold calculation as she fixed Shrek with a smug, calculating gaze.");
                 System.out.println("\"Well, well, the ogre has finally arrived,\"");
@@ -590,7 +648,7 @@ public class Main
                 System.out.println("Her lips twisted into a pout, and her eyes scanned Shrek up and down, as though inspecting him like a piece of moldy fruit.");
                 System.out.println("\"Honestly, I expected someone more... dashing. What took you so long?!\"");
                 break;
-            case 14: //done
+            case 14:
                 // FIONA's speech
                 System.out.println("\"You're late. I mean, really late.");
                 System.out.println("Do you have any idea what it's like being stuck in this tower? No one to talk to, no one to look at, just stone and silence.");
@@ -617,7 +675,7 @@ public class Main
                 System.out.println("Now, you really, reaaaaaalllyyy want to LEAVE.");
                 break;
             case 15:
-                // Shrek's end (commande LEAVE)
+                // Game's end message (command LEAVE)
                 System.out.println("Shrek trudged back through the tower, his mind heavy with frustration.");
                 System.out.println("The thought of Fiona, her endless complaints, her ungratefulness, her unbearable presence, gnawed at him with every step.");
                 System.out.println("He couldn't do it.");
