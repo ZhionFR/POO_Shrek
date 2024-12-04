@@ -5,11 +5,9 @@ import Game.*;
 public class Main
 {
 
-
     public static void initLocation(Location loc){
 
-        //Init de toutes les commandes du jeux qui exisent
-        // Commands available in the house.
+        // Initialize all commands
         Commands GO = new Commands("GO");
         Commands SWAMP = new Commands("SWAMP");
         Commands BED = new Commands("BED");
@@ -22,7 +20,6 @@ public class Main
         Commands HOUSE = new Commands("HOUSE");
         Commands LOOK = new Commands("LOOK");
         Commands MILK1 = new Commands("MILK1");
-        Commands DONKEY = new Commands("DONKEY");
         Commands WC = new Commands("WC");
         Commands STORYTELLER = new Commands("STORYTELLER");
         Commands SPEAK = new Commands("SPEAK");
@@ -36,21 +33,102 @@ public class Main
         Commands SHIELD = new Commands("SHIELD");
 
 
-        //Ajout des fonction basique a touts mes lieux
+        // Add basic functions for all the locations
         loc.addCommands(GO);
         loc.addCommands(TAKE);
         loc.addCommands(DOWN);
         loc.addCommands(USE);
+        loc.addCommands(LOOK);
 
-        //Ajout des items qui seront transportable/deposable partout
+        //Add items who will be dropped everywhere
         loc.addCommands(MEAL);
         loc.addCommands(BAG);
-        loc.addCommands(PUSS);
+        loc.addCommands(PUSSINBOOTS);
+        loc.addCommands(MILK1);
+        loc.addCommands(MILK2);
+        loc.addCommands(MILK3);
+        loc.addCommands(SHIELD);
 
 
-        if (loc.getNameLoc().equals("SWAMP")){
+        if (loc.getNameLoc().equals("HOUSE"))
+        {
+            //Add Commands
+            loc.addCommands(HOUSE);
+            loc.addCommands(BED);
+            loc.addCommands(SWAMP);
+
+            //Creation of items
+            Bags bag = new Bags(200.0,"BAG");
+            Items meal = new Items("MEAL",true,true,20,0,50,0);
+            Items milkBottle1 = new Items("MILK1",true,false,10,0,0,0);
+
+            //Add int bag
+            loc.addItems(bag);
+            loc.addItems(meal);
+            loc.addItems(milkBottle1);
+
+        }
+        if (loc.getNameLoc().equals("SWAMP"))
+        {
+
+            //Add Commands
+            loc.addCommands(HOUSE);
+            loc.addCommands(SWAMP);
+            loc.addCommands(FOREST);
+            loc.addCommands(WC);
+            loc.addCommands(STORYTELLER);
+            loc.addCommands(SPEAK);
+
+            //Creation of items
+            Items milkBottle2 = new Items("MILK2",true,false,10,0,0,0);
+
+            //Add items
+            loc.addItems(milkBottle2);
+
+        }
+        if (loc.getNameLoc().equals("FOREST"))
+        {
+            //Add commands
+            loc.addCommands(SPEAK);
+            loc.addCommands(FOREST);
+            loc.addCommands(PUSSINBOOTS);
+            loc.addCommands(BRIDGE);
+
+            //Creation of items
+            Items pussinboots = new Items("PUSSINBOOTS",false,true,20,0,0,50);
+            Items milkBottle3 = new Items("MILK3",true,false,10,0,0,0);
+
+            //Add items
+            loc.addItems(pussinboots);
+            loc.addItems(milkBottle3);
 
 
+        }
+        if (loc.getNameLoc().equals("BRIDGE")) {
+
+            //Add Commands
+            loc.addCommands(FOREST);
+            loc.addCommands(LAUREDEFARKUAL);
+            loc.addCommands(BRIDGE);
+            loc.addCommands(SPEAK);
+        }
+        if(loc.getNameLoc().equals("CASTLE")){
+
+            //Add Commands
+            loc.addCommands(CASTLE);
+            loc.addCommands(BRIDGE);
+
+            //creation of items
+            Items shield = new Items("SHIELD",true,true,50,0,0,0 );
+
+            //Add items
+            loc.addItems(shield);
+
+        }
+        if(loc.getNameLoc().equals("TOWER")){
+
+            loc.addCommands(CASTLE);
+            loc.addCommands(TOWER);
         }
 
     }
@@ -103,20 +181,25 @@ public class Main
         }
         else
         {
-            // WARNING: We need to check if the items are already taken or not.
-            // We need a bag if we want to store items in it.
-            if ( shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getWearable()) //If items are not in the bag, and that it's wearable :
-            {
-                // Add the items from the location in the bag
-                shrek.addItemInBag(shrek.getCurrentLocation().getItems(cmd2));
+            // Item present in location
+            if (shrek.getCurrentLocation().isItemsPresentInLoc(cmd2)) {
+                // WARNING: We need to check if the items are already taken or not.
+                // We need a bag if we want to store items in it.
+                if (shrek.hasBag() && !shrek.getCurrentBag().isItemsInBag(cmd2) && shrek.getCurrentLocation().getItems(cmd2).getWearable()) //If items are not in the bag, and that it's wearable :
+                {
+                    // Add the items from the location in the bag
+                    shrek.addItemInBag(shrek.getCurrentLocation().getItems(cmd2));
 
-                // Delete the item from the location.
-                shrek.getCurrentLocation().delItems(cmd2);
-                System.out.println(cmd2 + " is taken.");
+                    // Delete the item from the location.
+                    shrek.getCurrentLocation().delItems(cmd2);
+                    System.out.println(cmd2 + " is taken.");
+                } else {
+                    System.out.println("You can have it on you.");
+                }
             }
             else
             {
-                System.out.println("You can have it on you.");
+                System.out.println("Item not available in this location.");
             }
         }
     }
@@ -183,7 +266,6 @@ public class Main
 
     public static void speakFonction(Hero shrek,String cmd2)
     {
-        if (cmd2.equals("DONKEY"))
         { // Maybe used only at the start
             // TODO: Need to have the function and the text
         }
@@ -200,12 +282,12 @@ public class Main
         }
         if (cmd2.equals("PUSSINBOOTS")){
 
-            //Il faudra les trois bouteilles de lait pour passer (rendre ma porte ouverte) !!!!!! et prendre le chat au passage
+            // We need 3 bottles of milk to advance
             if (shrek.getCurrentBag().hasThreeBottleOfMilf()){
 
                 // My cat will be a usable item.
                 shrek.getCurrentLocation().getItems("PUSSINBOOTS").setWearable(true);
-                //Ma porte se deverouillera
+                // Door unlocked
                 shrek.getCurrentLocation().getDoorOfLocation("BRIDGE").setCanCross(true);
             }
         }
@@ -233,200 +315,56 @@ public class Main
 
     public static void main(String[] args)
     {
+        //Initialisation of my game
 
-
-        // Location initializing
+        //******************house_swamp*********
 
         Location house = new Location("HOUSE");
         Location swamp = new Location("SWAMP");
+        //Init my two location
+        initLocation(house);
+        initLocation(swamp);
 
-        Door HOUSE_SWAMP = new Door("HOUSE_SWAMP", house, swamp);
+
         Hero shrek = new Hero(house); // Shrek's current location is the house
 
+        Door HOUSE_SWAMP = new Door("HOUSE_SWAMP", house, swamp);
         // Add Doors
         house.addDoor(HOUSE_SWAMP);
         swamp.addDoor(HOUSE_SWAMP);
 
 
-        // Commands available in the house.
-        Commands GO = new Commands("GO");
-        Commands SWAMP = new Commands("SWAMP");
-        Commands BED = new Commands("BED");
-        Commands MEAL = new Commands("MEAL");
-        Commands BAG = new Commands("BAG");
-        Commands DOWN = new Commands("DOWN");
-        Commands TAKE = new Commands("TAKE");
-        Commands USE = new Commands("USE");
-        Commands PUSSINBOOTS = new Commands("PUSSINBOOTS");
-        Commands HOUSE = new Commands("HOUSE");
-        Commands LOOK = new Commands("LOOK");
-        Commands MILK1 = new Commands("MILK1");
-
-        // Items available in the house.
-        Bags bag = new Bags(200.0,"BAG");
-        Items meal = new Items("MEAL",true,true,20,0,50,0);
-        Items milkBottle1 = new Items("MILK1",true,false,10,0,0,0);
-
-        // Add everything to the location
-        house.addCommands(GO);
-        house.addCommands(SWAMP);
-        house.addCommands(HOUSE);
-        house.addCommands(TAKE);
-        house.addCommands(MEAL);
-        house.addCommands(BAG);
-        house.addCommands(BED);
-        house.addCommands(DOWN);
-        house.addCommands(USE);
-        house.addCommands(PUSSINBOOTS);
-        house.addCommands(LOOK);
-        house.addCommands(MILK1);
-
-        house.addItems(bag);
-        house.addItems(meal);
-        house.addItems(milkBottle1);
-
-        // Swamp's commands
-        Commands DONKEY = new Commands("DONKEY");
-        Commands WC = new Commands("WC");
-        Commands STORYTELLER = new Commands("STORYTELLER");
-        Commands SPEAK = new Commands("SPEAK");
-        Commands FOREST = new Commands("FOREST");
-        Commands MILK2 = new Commands("MILK2");
-
-        swamp.addCommands(GO);
-        swamp.addCommands(HOUSE);
-        swamp.addCommands(SWAMP);
-        swamp.addCommands(BAG);
-        swamp.addCommands(DONKEY);
-        swamp.addCommands(WC);
-        swamp.addCommands(STORYTELLER);
-        swamp.addCommands(DOWN);
-        swamp.addCommands(TAKE);
-        swamp.addCommands(SPEAK);
-        swamp.addCommands(FOREST);
-        swamp.addCommands(LOOK);
-        swamp.addCommands(USE);
-        swamp.addCommands(MILK2);
-
-        Items milkBottle2 = new Items("MILK2",true,false,10,0,0,0);
-        swamp.addItems(milkBottle2);
-
-
-        // Add companion
-
-        /* Game.Companion DONKEY = new Game.Companion("Donkey",20,10);
-         * // WE NEED to add the companions bcs he inherits from character.
-         * swamp.ajouterCharacter(DONKEY);
-         * */
+        //*******************forest_bridge*************
 
         Location forest = new Location("FOREST");
         Location bridge = new Location("BRIDGE");
-
+        initLocation(forest);
+        initLocation(bridge);
 
         LockDoor SWAMP_FOREST = new LockDoor("SWAMP_FOREST", swamp,forest,false);
         LockDoor FOREST_BRIDGE = new LockDoor("FOREST_BRIDGE",forest,bridge,false);
 
-        swamp.addDoor(SWAMP_FOREST);
+        swamp.addDoor(SWAMP_FOREST);//Link with the previous location.
 
         forest.addDoor(SWAMP_FOREST);
         forest.addDoor(FOREST_BRIDGE);
-        // Add the door to the forest to the swamp
-
-        Commands BRIDGE = new Commands("BRIDGE");
-        Commands MILK3 = new Commands("MILK3");
-
-        // The fact that the cat will be in our inventory will be changed after the fight.
-        Items pussinboots = new Items("PUSSINBOOTS",false,true,20,0,0,50);
-        Items milkBottle3 = new Items("MILK3",true,false,10,0,0,0);
 
 
-        forest.addCommands(GO);
-        forest.addCommands(SWAMP);
-        forest.addCommands(TAKE);
-        forest.addCommands(MEAL);
-        forest.addCommands(BAG);
-        forest.addCommands(DOWN);
-        forest.addCommands(USE);
-        forest.addCommands(BAG);
-        forest.addCommands(FOREST);
-        forest.addCommands(SPEAK);
-        forest.addCommands(MILK3);
 
-        forest.addCommands(PUSSINBOOTS);
-        forest.addCommands(BRIDGE);
-
-        forest.addItems(pussinboots);
-        forest.addItems(milkBottle3);
-
-
-        //BRIDGE
+        //**************castle_tower*************
 
         Location castle = new Location("CASTLE");
+        initLocation(castle);
 
         LockDoor BRIDGE_CASTEL = new LockDoor("BRIDGE_CASTEL",bridge,castle,false);
-
-        Commands LAUREDEFARKUAL = new Commands("LAUREDEFARKUAL");
-        Commands CASTLE = new Commands("CASTLE");
-
-        bridge.addCommands(GO);
-        bridge.addCommands(TAKE);
-        bridge.addCommands(BAG);
-        bridge.addCommands(DOWN);
-        bridge.addCommands(USE);
-        bridge.addCommands(FOREST);
-        bridge.addCommands(SPEAK);
-        bridge.addCommands(BRIDGE);
-        bridge.addCommands(MEAL);
-        bridge.addCommands(LOOK);
-        bridge.addCommands(LAUREDEFARKUAL);
-        bridge.addCommands(CASTLE);
-
-        bridge.addDoor(FOREST_BRIDGE);
         bridge.addDoor(BRIDGE_CASTEL);
 
 
         Location tower = new Location("TOWER");
+        initLocation(tower);
+
         Door CASTLE_TOWER = new Door("CASTLE_TOWER",castle,tower);
-
-        Commands TOWER = new Commands("TOWER");
-        Commands SHIELD = new Commands("SHIELD");
-
-        castle.addCommands(GO);
-        castle.addCommands(TAKE);
-        castle.addCommands(DOWN);
-        castle.addCommands(USE);
-        castle.addCommands(BRIDGE);
-        castle.addCommands(MEAL);
-        castle.addCommands(LOOK);
-        castle.addCommands(CASTLE);
-        castle.addCommands(TOWER);
-        castle.addCommands(SHIELD);
-
-        Items shield = new Items("SHIELD",true,true,50,0,0,0 );
-        castle.addItems(shield);
-
-
-        tower.addCommands(GO);
-        tower.addCommands(TAKE);
-        tower.addCommands(BAG);
-        tower.addCommands(DOWN);
-        tower.addCommands(USE);
-        tower.addCommands(CASTLE);
-        tower.addCommands(TOWER);
-        tower.addCommands(MEAL);
-        tower.addCommands(TOWER);
-
         tower.addDoor(CASTLE_TOWER);
-        //Peut compliquer la chose en creant use upstaires
-
-
-
-
-
-
-
-
-
 
 
         int end = 1;
@@ -501,7 +439,7 @@ public class Main
                 }
                 else
                 {
-                    System.out.println("Commande incompatible avec le milieu.");
+                    System.out.println("Incompatible command.");
                 }
             }
         }

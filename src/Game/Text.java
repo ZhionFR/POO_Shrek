@@ -151,7 +151,7 @@ public class Text
                 System.out.println("What am I supposed to do with you?");
                 System.out.println("Rescue me?");
                 System.out.println("Ha!");
-                System.out.println("I\'ve had more interesting conversations with the walls.");
+                System.out.println("I've had more interesting conversations with the walls.");
                 System.out.println("You probably don't even know how to open that door behind you, do you?\"");
                 System.out.println("She took another sharp breath, her impatience practically radiating off her.");
                 System.out.println("\"Honestly, I thought the rescue would be something worth waiting for, but no.");
@@ -160,7 +160,7 @@ public class Text
                 System.out.println("Well, at least you're not like all those other men, leaving me for another chick.\"");
                 System.out.println("she called, her tone dripping the sarcasm.");
                 System.out.println("Well, at least you're not like all those other men, leaving me for another chick.");
-                System.out.println("\"Not that it matters. I'm sure you'd only mess that up too.\"");;
+                System.out.println("\"Not that it matters. I'm sure you'd only mess that up too.\"");
             case 15:
                 // Shrek's end (commande LEAVE)
                 System.out.println("Shrek trudged back through the tower, his mind heavy with frustration.");

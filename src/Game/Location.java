@@ -86,6 +86,16 @@ public class Location
         System.out.println(" The " + itemWanted + " is not here, or this is not an item at all.");
         return null;
     }
+
+    public boolean isItemsPresentInLoc(String itemWanted){
+
+        for (int i = 0;i<this.items.size();i++){
+
+            if (this.items.get(i).getName().equals(itemWanted)){
+                return true;
+            }
+        }return false;
+    }
     // Error if the user use a location's name instead of an item's one
 
 
