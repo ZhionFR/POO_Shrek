@@ -152,31 +152,31 @@ public class Text
                 System.out.println("Rescue me?");
                 System.out.println("Ha!");
                 System.out.println("I\'ve had more interesting conversations with the walls.");
-                System.out.println("You probably don’t even know how to open that door behind you, do you?\"");
+                System.out.println("You probably don't even know how to open that door behind you, do you?\"");
                 System.out.println("She took another sharp breath, her impatience practically radiating off her.");
                 System.out.println("\"Honestly, I thought the rescue would be something worth waiting for, but no.");
-                System.out.println("You’re just as disappointing as everyone else.");
+                System.out.println("You're just as disappointing as everyone else.");
                 System.out.println("Figures.");
                 System.out.println("Well, at least you're not like all those other men, leaving me for another chick.\"");
                 System.out.println("she called, her tone dripping the sarcasm.");
                 System.out.println("Well, at least you're not like all those other men, leaving me for another chick.");
-                System.out.println("\"Not that it matters. I’m sure you'd only mess that up too.\"");;
+                System.out.println("\"Not that it matters. I'm sure you'd only mess that up too.\"");;
             case 15:
                 // Shrek's end (commande LEAVE)
                 System.out.println("Shrek trudged back through the tower, his mind heavy with frustration.");
                 System.out.println("The thought of Fiona, her endless complaints, her ungratefulness, her unbearable presence, gnawed at him with every step.");
-                System.out.println("He couldn’t do it.");
-                System.out.println("He couldn’t stay another minute in that tower with her.");
+                System.out.println("He couldn't do it.");
+                System.out.println("He couldn't stay another minute in that tower with her.");
                 System.out.println("Without a second thought, he turned his back on the princess and made his way down the stairs.");
                 System.out.println("Let her stay up there, he thought bitterly.");
                 System.out.println("She can deal with it.");
                 System.out.println("As he reached the base of the tower, the harsh reality of his decision settled in.");
-                System.out.println("The sound of Laure de Farkual’s voice snapped him out of his thoughts, and he knew what had to be done.");
+                System.out.println("The sound of Laure de Farkual's voice snapped him out of his thoughts, and he knew what had to be done.");
                 System.out.println("\"I've made my choice,\"");
                 System.out.println("Shrek muttered, his voice low.");
                 System.out.println("He looked up at Laure, standing tall on the bridge.");
                 System.out.println("Blind me. It's better than living with that... unbearable woman.");
-                System.out.println("Laure’s smile stretched wider, turning the pepper mill with satisfaction.");
+                System.out.println("Laure's smile stretched wider, turning the pepper mill with satisfaction.");
                 System.out.println("And so, Shrek left Fiona behind in her tower ; ");
                 System.out.println("choosing the lesser pain—because sometimes, the escape from misery is worth the price of blindness.");
         }

@@ -45,7 +45,7 @@ public class Main
         //Ajout des items qui seront transportable/deposable partout
         loc.addCommands(MEAL);
         loc.addCommands(BAG);
-        loc.addCommands();
+        loc.addCommands(PUSS);
 
 
         if (loc.getNameLoc().equals("SWAMP")){
